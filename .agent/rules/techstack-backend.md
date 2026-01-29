@@ -3,7 +3,7 @@ trigger: model_decision
 description: when working on anything related to the backend
 ---
 
-# Backend Tech Stack & Implementation Rules — PAU 2
+# Backend Tech Stack & Implementation Rules — Generic Project
 
 ## Purpose
 Define the **backend-only** technology choices, architecture constraints, and quality gates.  

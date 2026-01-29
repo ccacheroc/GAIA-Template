@@ -1,4 +1,4 @@
-# Voice & Tone Specification — PAU 2 Neighborhood Association
+# Voice & Tone Specification — Generic Project Template
 
 ## 1) Purpose
 Define a single, consistent voice and situational tone for **any text generated in the app** (UI labels, help text, errors, notifications, news, incident flows, survey copy, admin panels). This spec aims to remove ambiguity and ensure a coherent, accessible experience across contexts and UI states.
@@ -8,7 +8,7 @@ These traits apply **everywhere**, regardless of screen or feature:
 
 - **Clear and functional**: states *what happened*, *what it means*, and *what to do next* (no fluff).
 - **Warm and respectful**: friendly and polite, never patronizing.
-- **Neutral and objective**: especially in “informational” communications (news, notices, incidents).
+- **Neutral and objective**: especially in “informational” communications (notices, status updates).
 - **Privacy-rigorous**: avoid exposing personal data; do not “assume” identities or intentions.
 - **Accessible**: simple, direct language; avoid unnecessary jargon; do not rely on color alone to communicate status.
 
@@ -17,13 +17,13 @@ These traits apply **everywhere**, regardless of screen or feature:
 - **Grammatical person:** second person (“you”) for general UI.
 - **Exceptions:**
   - Legal/consent texts: formal and impersonal tone.
-  - Institutional announcements: use “the Association” as the subject (“The Association informs…”).
+  - Institutional announcements: use “the Institution” as the subject (“The Institution informs…”).
 
 ## 4) Language & Style Rules
 
 ### 4.1 Language and variants
 - **Spanish (Spain)** by default.
-- Avoid localisms that not everyone in the neighborhood will understand.
+- Avoid localisms that not everyone in the community will understand.
 
 ### 4.2 Clarity and length
 - Short sentences (ideal: 8–18 words).
@@ -31,7 +31,7 @@ These traits apply **everywhere**, regardless of screen or feature:
 - Avoid vague adjectives (“quick”, “easy”, “soon”) unless you can be specific.
 
 ### 4.3 Approved terminology (consistency)
-- Use consistent terms: “Association”, “neighborhood”, “community”, “members”, “administration/management”.
+- Use consistent terms: “Institution”, “community”, “members”, “administration/management”.
 - Avoid: “customers”, “end users”, “ticket” (use “incident” or “request”).
 - Keep section names exactly as they appear in the app (Home, News, Incidents, Events, Surveys, Useful information).
 
@@ -55,7 +55,7 @@ Align tone with the component/flow state. Never hide what matters.
 
 ### 5.2 Hover / Tooltip (if applicable)
 - Micro-explanation, 1 sentence.
-- Example: “Visible only to the Association administration.”
+- Example: “Visible only to the administration.”
 
 ### 5.3 Focus / Keyboard navigation
 - Avoid essential information that depends on hover.
@@ -89,7 +89,7 @@ Align tone with the component/flow state. Never hide what matters.
 - Avoid: rumors, accusations, polarizing language.
 
 **Short template:**
-- “The Association informs: [fact]. [Date/time]. [Location]. [Action or link].”
+- “The Institution informs: [fact]. [Date/time]. [Location]. [Action or link].”
 
 ### 6.2 Incidents (reporting)
 - *Operational* empathy (acknowledge, then guide toward resolution).

@@ -2,7 +2,7 @@
 trigger: always_on
 ---
 
-# Tech Stack (App-Level) — PAU 2 Neighborhood Association
+# Tech Stack (App-Level) — Generic Project Template
 
 ## Purpose
 This document is the **single source of truth for cross-cutting constraints** (repo layout, spec-driven workflow, shared conventions).  
@@ -39,7 +39,7 @@ Any change to this structure MUST be reflected here in the same PR.
   - **Code**: Variable names, function names, class names.
   - **Comments**: Inline code comments, docstrings, commit messages.
   - **Artifacts**: Any generated file, diagram, or documentation.
-- **Exception**: User-facing UI strings (labels, buttons, copy) **MUST be in Spanish** (Castilian), as this is an application for a Spanish neighborhood association. Code entities (variables, functions, keys) MUST remain in English.
+- **Exception**: User-facing UI strings (labels, buttons, copy) **MUST be in Spanish** (Castilian), as this is a local application. Code entities (variables, functions, keys) MUST remain in English.
 
 ## Environments & Configuration (Shared Conventions)
 - Configuration MUST come from environment variables (no hardcoded endpoints/keys).

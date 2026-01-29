@@ -3,7 +3,7 @@ trigger: model_decision
 description: when working on anything related to the frontend
 ---
 
-# Frontend Tech Stack & Implementation Rules — PAU 2
+# Frontend Tech Stack & Implementation Rules — Generic Project
 
 ## Purpose
 Define the **frontend-only** technology choices, UI system rules, data/state decisions, and quality gates.  

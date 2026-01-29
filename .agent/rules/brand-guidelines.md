@@ -3,7 +3,7 @@ trigger: model_decision
 description: When working on the User Interface (Frontend)
 ---
 
-# Brand Guidelines — Community Management App (PAU 2 Neighbors Association)
+# Brand Guidelines — Generic Product UI (Community Management)
 **Version:** 1.0 (Draft)  
 **Scope:** Product UI (web/PWA), content, accessibility, and technical implementation rules (Design Tokens).  
 **Audience:** Design, Frontend, Backend (for future emails/notifications), QA.  
