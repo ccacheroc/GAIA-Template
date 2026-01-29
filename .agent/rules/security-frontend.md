@@ -3,16 +3,16 @@ trigger: always_on
 ---
 
 # Frontend Security & Compliance Checklist
-## Stack: React · TypeScript · Vite · SPA
+## Stack: React/Vue · TypeScript · Vite · SPA
 
 ---
 
 ## 1. Protección contra XSS (OWASP ASVS, Top 10)
-- [ ] No uso de `dangerouslySetInnerHTML`
+- [ ] No uso de `dangerouslySetInnerHTML` (React) o `v-html` (Vue) sin sanitizar
 - [ ] Sanitización con DOMPurify si se renderiza HTML
 - [ ] No uso de `eval` ni funciones dinámicas
 - [ ] Renderizado de datos externos solo como texto
-- [ ] React Strict Mode habilitado
+- [ ] Misión de seguridad: Strict Mode habilitado
 
 ---
 

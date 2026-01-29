@@ -9,18 +9,17 @@ description: when working on anything related to the frontend
 Define the **frontend-only** technology choices, UI system rules, data/state decisions, and quality gates.  
 Backend rules must live in `techstack-backend.md`.
 
-## Core Stack
-- **Framework:** React 18 + TypeScript
+## Core Stack (Agnostic Options)
+- **Framework:** React 18+ OR Vue 3+ (TypeScript Mandatory)
 - **Build Tool:** Vite
 - **App Type:** Single Page Application (SPA)
-- **Routing:** React Router (`react-router-dom`)
-- **Styling Engine:** Tailwind CSS (mandatory)
-- **Component Library:** shadcn/ui (mandatory primitives)
-- **Icons:** Lucide React
-- **Forms:** React Hook Form + Zod
+- **Routing:** React Router (React) OR Vue Router (Vue)
+- **Styling Engine:** Tailwind CSS (Mandatory)
+- **Component Library:** shadcn/ui (React) OR shadcn-vue / Radix Vue (Vue)
+- **Icons:** Lucide (React/Vue)
+- **Forms:** React Hook Form (React) OR VeeValidate (Vue) + Zod
 - **HTTP Client:** Axios
-- **Server State / Cache:** TanStack Query (`@tanstack/react-query`)
-- **Rich Text:** React Quill (allowed where needed)
+- **Server State / Cache:** TanStack Query (React/Vue)
 
 ## Brand Tokens & Theming (Mandatory)
 ### Source of truth
@@ -38,17 +37,17 @@ Backend rules must live in `techstack-backend.md`.
 - No raw hex colors inside JSX.
 - No custom CSS files for component styling (Tailwind + shadcn only), except vendor CSS required by third-party libs (see React Quill).
 
-## UI Implementation Rules (shadcn/ui)
+## UI Implementation Rules
 ### Buttons
 - Primary actions: `Button` default variant (maps to `primary`).
 - Secondary actions: `outline` or `ghost`.
 - Dangerous actions: `destructive`.
-- Validation wiring MUST use `@hookform/resolvers/zod` (no custom resolver implementations).
+- Validation wiring MUST use Zod resolvers.
 
 
 ### Forms
 - Labels MUST be above inputs.
-- Validation MUST be Zod + RHF resolver (no ad-hoc validation).
+- Validation MUST be Zod + Framework-specific resolver (no ad-hoc validation).
 - Consistent spacing: use `space-y-4` or `gap-4` patterns.
 
 ### Layout

@@ -13,7 +13,7 @@ description: When working on the User Interface (Frontend)
 
 ## 0) Brand principles (what the UI must convey)
 1. **Trust & clarity:** understandable information, strong visual hierarchy, nothing “decorative” if it harms legibility.
-2. **Neighborhood closeness:** human and respectful tone, action-oriented microcopy (“Report”, “View”, “Pay fee”).
+2. **User Proximity:** human and respectful tone, action-oriented microcopy (“Report”, “View”, “Submit”).
 3. **Order & predictability:** consistent components, repeatable patterns, well-defined states.
 4. **Accessible by default:** minimum AA contrast, visible focus, correct keyboard and touch behavior.
 
@@ -117,7 +117,7 @@ Rules of thumb:
 
 ---
 
-## 5) UI components (React + Tailwind + shadcn/ui)
+## 5) UI components (Framework-Agnostic + Tailwind)
 ### 5.1 Buttons
 - **Primary:** `--color-action-primary` background (Terracotta AA) + light text.
 - **Secondary:** outline/ghost with Navy; use Green as an accent (not as a white-text background).
@@ -172,10 +172,9 @@ Required states: default, hover, focus, active, disabled, loading.
 - Code entities (variables, props, comments) MUST remain in English.
 
 ### 8.2 Tone
-- Short, direct, non-blaming messages:
-  - “Couldn’t save. Check your connection and try again.” -> "No se pudo guardar. Revisa tu conexión e inténtalo de nuevo."
+- Short, direct, non-blaming messages.
 - Always state the action and the next step.
-- Avoid technical jargon (e.g., “payload”, “JWT”) in a neighbors-facing UI.
+- Avoid technical jargon (e.g., “payload”, “JWT”) in a user-facing UI.
 
 ---
 
