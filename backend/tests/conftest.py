@@ -8,7 +8,7 @@ import os
 # [Feature: Quiz Management] [Story: QQ-TEACHER-001] [Ticket: QQ-TEACHER-001-DB-T01]
 
 # Default to localhost for local testing if not set
-DATABASE_URL = os.getenv("DATABASE_URL", "postgresql+asyncpg://postgres:postgres@localhost:5432/app_db")
+DATABASE_URL = os.getenv("DATABASE_URL", "postgresql+asyncpg://postgres:postgres@localhost:5455/app_db")
 
 @pytest.fixture(scope="session")
 def event_loop() -> Generator:

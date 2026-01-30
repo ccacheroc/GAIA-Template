@@ -73,6 +73,7 @@ Your response must be **only** the full content of this plan file, in English, w
 
 ## 3) Detailed Work Plan (TDD + BDD)
 > Follow **Red → Green → Refactor**. For each step, cite the **scenario titles/tags** from the story.
+> **Container Check**: If a task requires the DB or other services, explicitly demand a connectivity check (e.g. `nc -z localhost <port>`). If unreachable, the agent must stop and prompt the user to start Docker.
 
 ### 3.1 Test-first sequencing
 1. **Define/Update tests**  
@@ -95,6 +96,7 @@ For each task use the template below. Add as many tasks as needed to fulfill the
 
 ### Task N: <Concise Title>
 - **Purpose**: What and why (tie to `<TICKET_ID>` and scenario names/tags).
+- **Prerequisites**: (If DB/Service required) Verify container is running and reachable. Stop if not.
 - **Artifacts impacted**: Tables/entities, repositories, services, endpoints, components, routes, copies/i18n keys, etc.
 - **Test types**: Unit | Integration | End-to-End | Accessibility (as applicable).
 - **BDD Acceptance (Given–When–Then)**:
