@@ -2,60 +2,57 @@
 
 **Source ticket**: `specs/features/quiz-management/tickets.md` → **QQ-TEACHER-005-BE-T01**  
 **Related user story**: **QQ-TEACHER-005** (from `specs/features/quiz-management/user-stories.md`)  
-**Plan version**: v1.0 — (Antigravity, 2026-01-30)  
-**Traceability**: All tasks address `QQ-TEACHER-005-BE-T01` and scenario `Publishing a valid quiz`.
+**Plan version**: v1.1 — Antigravity Assistant, 2026-01-30  
+**Traceability**: Satisfies Scenario 1 (Successful Publish) and Scenario 2 (Preventing invalid publish) of Story QQ-TEACHER-005.
 
 ---
 
 ## 1) Context & Objective
-- **Ticket summary (3–5 lines)**: Implement the final validation and publishing logic for quizzes. This service ensures that a quiz is pedogogically complete (has title, questions, and valid answers) before allowing it to be used in live sessions.
-- **Impacted entities/tables**: `quizzes`, `questions`, `options`.
-- **Impacted services/modules**: `application/use_cases/quiz/publish_quiz.py`.
-- **Impacted tests or business flows**: Satisfies `QQ-TEACHER-005` Gherkin scenarios for publication.
+- **Ticket summary**: Implement a publication service that validates a quiz's completeness (Title exists, >=1 question, all questions valid) before allowing a status change to `PUBLISHED`.
+- **Impacted entities/tables**: `quizzes`.
+- **Impacted services/modules**: `backend/app/application/use_cases/quiz/publish_quiz.py`.
+- **Impacted tests or business flows**: `QQ-TEACHER-005` BDD scenarios.
 
 ## 2) Scope
-- **In scope**: 
-  - `POST /quizzes/{id}/publish` endpoint.
-  - Deep validation service: 
-    - Quiz must have a Title.
-    - Quiz must have at least 1 Question.
-    - Each Question must have the required number of options.
-    - Each Question must have exactly 1 correct answer.
-  - Status transition: DRAFT -> PUBLISHED.
-- **Out of scope**: Versioning (Phase 2).
-- **Assumptions**: Published quizzes become read-only for certain structural properties.
+- **In scope**:
+    - `POST /quizzes/{id}/publish` endpoint.
+    - `PublishQuiz` use case with comprehensive validation logic.
+    - Error responses for specific validation failures (e.g., "Empty quiz").
+- **Out of scope**: UI logic.
 
 ## 3) Detailed Work Plan (TDD + BDD)
 
 ### 3.1 Test-first sequencing
-1. **Define/Update tests**  
-   - Integration tests: Attempt to publish an empty quiz (fail), attempt to publish a quiz with a question missing a correct answer (fail), attempt to publish a valid quiz (success).
-2. **Minimal implementation**
-   - Create `PublishQuiz` use case.
-   - Implement the `ValidationService`.
-3. **Refactor**
-   - Centralize business error codes for better frontend handling.
+1. **Unit Test (Validator)**: Verify it rejects quizzes with 0 questions.
+2. **Unit Test (Validator)**: Verify it rejects quizzes with questions missing a correct answer.
+3. **Integration Test**: Verify successful publish updates status to `PUBLISHED` and BOLA is respected.
+4. **Implementation**: Build the service and use case.
 
 ### 3.2 NFR hooks
-- **Security**: Ownership check.
-- **Resilience**: Ensure state remains consistent if validation fails.
+- **Resilience**: Ensure status change is atomic.
+- **Security**: Strict check that only the owner can publish.
 
 ## 4) Atomic Task Breakdown
 
-### Task 1: Quiz Validation Service
-- **Purpose**: Deep check of quiz completeness (QQ-TEACHER-005-BE-T01).
-- **Artifacts impacted**: `backend/app/domain/services/quiz_validation_service.py`.
+### Task 1: Validation Engine
+- **Purpose**: Centralize publishing rules.
+- **Artifacts impacted**: `backend/app/domain/services/quiz_validator.py`.
 - **Test types**: Unit.
-- **BDD Acceptance**:
-  - Given a quiz without questions
-  - When validated for publishing
-  - Then it should return "A quiz must have at least one question".
 
-### Task 2: Publish Use Case
-- **Purpose**: Update quiz status (QQ-TEACHER-005-BE-T01).
-- **Artifacts impacted**: `backend/app/application/use_cases/quiz/publish_quiz.py`.
-- **Test types**: Integration.
-- **BDD Acceptance**:
-  - Given a valid quiz draft
-  - When published
-  - Then its status in DB should be "PUBLISHED".
+### Task 2: Publish Use Case & Router
+- **Purpose**: Orcherstrate validation and status update.
+- **Artifacts impacted**: `backend/app/application/use_cases/quiz/publish_quiz.py`, `backend/app/presentation/routers/quiz.py`.
+- **Test types**: Unit | Integration.
+
+### Task 3: Documentation Update
+- **Purpose**: Reflect the status transition logic in the Architectural model.
+- **Artifacts impacted**: `@/specs/ArchitecturalModel.md` (PlantUML Component).
+
+# FINAL OUTPUT & REVIEW
+The user will review this document manually after generation. Output the final file content directly.
+
+# JOURNALING PROTOCOL (MANDATORY)
+Upon successful completion of the task, you MUST append a concise entry to @/specs/progress.md with the following format:
+- **Date**: [2026-01-30]
+- **Milestone**: Generated Implementation Plan QQ-TEACHER-005-BE-T01
+- **Artifacts**: specs/features/quiz-management/plan_QQ-TEACHER-005-BE-T01.md

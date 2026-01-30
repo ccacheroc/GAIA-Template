@@ -5,12 +5,24 @@ from app.presentation.schemas.quiz import QuizCreate, QuizUpdate, QuizResponse
 from app.application.use_cases.quiz.create_quiz import CreateQuiz
 from app.application.use_cases.quiz.get_quiz import GetQuiz
 from app.application.use_cases.quiz.update_quiz import UpdateQuiz
+from app.application.use_cases.quiz.list_quizzes import ListQuizzes
 from app.domain.repositories.quiz_repository import QuizRepository
-from app.core.deps import get_current_user, get_quiz_repository
+from app.presentation.schemas.question import QuestionCreate, QuestionResponse
+from app.application.use_cases.question.add_question import AddQuestion
+from app.domain.repositories.question_repository import QuestionRepository
+from app.core.deps import get_current_user, get_quiz_repository, get_question_repository
 
-# [Feature: Quiz Management] [Story: QQ-TEACHER-001] [Ticket: QQ-TEACHER-001-BE-T02]
+# [Feature: Quiz Management] [Story: QQ-TEACHER-001] [Ticket: QQ-BUG-002]
 
 router = APIRouter(prefix="/quizzes", tags=["Quizzes"])
+
+@router.get("", response_model=list[QuizResponse])
+async def list_quizzes(
+    current_user_id: UUID = Depends(get_current_user),
+    repo: QuizRepository = Depends(get_quiz_repository)
+):
+    use_case = ListQuizzes(repo)
+    return await use_case.execute(current_user_id)
 
 @router.post("", response_model=QuizResponse, status_code=status.HTTP_201_CREATED)
 async def create_quiz(
@@ -57,3 +69,19 @@ async def update_quiz(
     use_case = UpdateQuiz(repo)
     updated = await use_case.execute(quiz_id, dto)
     return updated
+
+@router.post("/{quiz_id}/questions", response_model=QuestionResponse, status_code=status.HTTP_201_CREATED)
+async def add_question(
+    quiz_id: UUID,
+    dto: QuestionCreate,
+    current_user_id: UUID = Depends(get_current_user),
+    quiz_repo: QuizRepository = Depends(get_quiz_repository),
+    question_repo: QuestionRepository = Depends(get_question_repository)
+):
+    use_case = AddQuestion(quiz_repo, question_repo)
+    try:
+        return await use_case.execute(current_user_id, quiz_id, dto)
+    except PermissionError as e:
+        raise HTTPException(status_code=404, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=400, detail=str(e))

@@ -17,3 +17,7 @@ class QuizRepository(Protocol):
     async def update(self, quiz: Quiz) -> Quiz:
         """Update an existing quiz"""
         ...
+    
+    async def list_by_teacher(self, teacher_id: UUID) -> list[Quiz]:
+        """List all quizzes for a teacher"""
+        ...

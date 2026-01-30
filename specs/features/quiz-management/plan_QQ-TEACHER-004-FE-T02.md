@@ -2,54 +2,57 @@
 
 **Source ticket**: `specs/features/quiz-management/tickets.md` → **QQ-TEACHER-004-FE-T02**  
 **Related user story**: **QQ-TEACHER-004** (from `specs/features/quiz-management/user-stories.md`)  
-**Plan version**: v1.0 — (Antigravity, 2026-01-30)  
-**Traceability**: All tasks address `QQ-TEACHER-004-FE-T02` and scenario `Reordering via drag and drop`.
+**Plan version**: v1.1 — Antigravity Assistant, 2026-01-30  
+**Traceability**: This plan implements Scenario 1 (DND) of Story QQ-TEACHER-004.
 
 ---
 
 ## 1) Context & Objective
-- **Ticket summary (3–5 lines)**: Implement the drag-and-drop interface for reordering questions in the quiz editor. This provides an intuitive way for teachers to organize their assessment flow.
-- **Impacted entities/tables**: N/A.
+- **Ticket summary**: Implement visual drag-and-drop reordering for the list of questions in the quiz editor. This involves integrating a DnD library and synchronizing the UI state with the backend via optimistic updates.
+- **Impacted entities/tables**: N/A (Frontend).
 - **Impacted services/modules**: `frontend/src/features/quiz-management/components/QuestionList.tsx`.
-- **Impacted tests or business flows**: Satisfies `QQ-TEACHER-004` UI scenario for reordering.
+- **Impacted tests or business flows**: `QQ-TEACHER-004` BDD scenario.
 
 ## 2) Scope
-- **In scope**: 
-  - Draggable wrappers for question cards.
-  - Sorting logic using `@dnd-kit/core` and `@dnd-kit/sortable`.
-  - Optimistic UI updates (the list moves instantly before the API call finishes).
-  - Integration with `PATCH /quizzes/{id}/reorder`.
-- **Out of scope**: Dragging options within a question (unless explicitly requested later).
-- **Assumptions**: Question items have stable UUIDs to use as keys.
+- **In scope**:
+    - Integration of `@dnd-kit/core` or `@dnd-kit/sortable`.
+    - Draggable wrapper for Question cards.
+    - Optimistic update logic in React Query `useReorderQuestions`.
+    - Visual drag handles and drop indicators.
+- **Out of scope**: Individual question internal reordering.
 
 ## 3) Detailed Work Plan (TDD + BDD)
 
 ### 3.1 Test-first sequencing
-1. **Define/Update tests**  
-   - E2E test using Playwright to drag the last item to the top and verify the new order.
-2. **Minimal implementation**
-   - Setup `DndContext` and `SortableContext`.
-   - Wrap question items with `useSortable`.
-   - Handle `onDragEnd` to update state and trigger mutation.
-3. **Refactor**
-   - Add visual transitions and drag handles.
+1. **Unit Test (Utility)**: Verify sequence calculation after moving array items.
+2. **E2E Test (Playwright)**: Simulate drag operation and verify network request to `PATCH /quizzes/{id}/reorder`.
+3. **Implementation**: Build the DnD wrapper.
 
 ### 3.2 NFR hooks
-- **Performance**: Ensure smooth drag interactions (> 30 FPS).
-- **Accessibility**: Provide keyboard shortcuts (e.g., Space to grab, Up/Down to move) as per WCAG.
+- **UX**: Smooth animations (layout transition).
+- **a11y**: Support keyboard-based reordering (Tab + Arrows) as per DnD-kit accessibility features.
 
 ## 4) Atomic Task Breakdown
 
-### Task 1: DnD Infrastructure
-- **Purpose**: Add sorting capabilities to the list (QQ-TEACHER-004-FE-T02).
+### Task 1: DND Integration
+- **Purpose**: Allow visual sorting.
 - **Artifacts impacted**: `frontend/src/features/quiz-management/components/QuestionList.tsx`.
-- **Test types**: Component.
-- **BDD Acceptance**:
-  - Given 3 questions
-  - When dragging the 3rd to position 1
-  - Then the local state should update to [3, 1, 2].
+- **Test types**: Unit | E2E.
 
-### Task 2: Reorder Mutation Integration
-- **Purpose**: Persist the new order in the backend (QQ-TEACHER-004-FE-T02).
-- **Artifacts impacted**: `frontend/src/features/quiz-management/hooks/useReorderQuestions.ts`.
-- **Test types**: Integration.
+### Task 2: Optimistic Mutation Hook
+- **Purpose**: Fast UI feedback.
+- **Artifacts impacted**: `frontend/src/features/quiz-management/api/questionQueries.ts`.
+- **Test types**: Integration (MSW).
+
+### Task 3: Documentation Update
+- **Purpose**: Reference visual interaction components in Architectural diagram.
+- **Artifacts impacted**: `@/specs/ArchitecturalModel.md` (PlantUML Component).
+
+# FINAL OUTPUT & REVIEW
+The user will review this document manually after generation. Output the final file content directly.
+
+# JOURNALING PROTOCOL (MANDATORY)
+Upon successful completion of the task, you MUST append a concise entry to @/specs/progress.md with the following format:
+- **Date**: [2026-01-30]
+- **Milestone**: Generated Implementation Plan QQ-TEACHER-004-FE-T02
+- **Artifacts**: specs/features/quiz-management/plan_QQ-TEACHER-004-FE-T02.md

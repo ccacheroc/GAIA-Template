@@ -2,48 +2,58 @@
 
 **Source ticket**: `specs/features/quiz-management/tickets.md` → **QQ-TEACHER-002-FE-T03**  
 **Related user story**: **QQ-TEACHER-002** (from `specs/features/quiz-management/user-stories.md`)  
-**Plan version**: v1.0 — (Antigravity, 2026-01-30)  
-**Traceability**: All tasks address `QQ-TEACHER-002-FE-T03` and scenarios `Adding a T/F question` and `Correct answer selection is mandatory`.
+**Plan version**: v1.1 — Antigravity Assistant, 2026-01-30  
+**Traceability**: This plan provides the UI components needed to satisfy Story QQ-TEACHER-002.
 
 ---
 
 ## 1) Context & Objective
-- **Ticket summary (3–5 lines)**: Develop the True/False question component for the quiz editor. This component allows teachers to enter the question text and select which option ("Verdadero" or "Falso") is correct.
-- **Impacted entities/tables**: N/A.
-- **Impacted services/modules**: `frontend/src/features/quiz-management/components/TFQuestionEditor.tsx`.
-- **Impacted tests or business flows**: Satisfies `QQ-TEACHER-002` UI scenarios.
+- **Ticket summary**: Build the UI components to add and edit True/False questions. This involves a specialized question card that renders "True" and "False" options with single-choice selection for the correct answer.
+- **Impacted entities/tables**: N/A (Frontend Only).
+- **Impacted services/modules**: `frontend/src/features/quiz-management/components/`, `frontend/src/features/quiz-management/api/`.
+- **Impacted tests or business flows**: `QQ-TEACHER-002` Playwright/E2E scenarios.
 
 ## 2) Scope
-- **In scope**: 
-  - Visual editor for TF questions.
-  - Radio button group for selecting the correct answer.
-  - Validation: Ensure question text is present and an answer is selected.
-  - Integration with the backend mutation.
-- **Out of scope**: Multiple choice dynamic options.
-- **Assumptions**: shadcn `RadioGroup` and `Label` are available.
+- **In scope**:
+    - `TFQuestionEditor` component.
+    - Integration with `useCreateQuestion` React Query hook.
+    - Validation messages (Scenario 2: Correct answer mandatory).
+    - Styling with shadcn/ui (RadioGroup, Cards).
+- **Out of scope**: Multiple choice UI.
+- **Assumptions**: The `CreateQuizPage` is the main container.
 
 ## 3) Detailed Work Plan (TDD + BDD)
 
 ### 3.1 Test-first sequencing
-1. **Define/Update tests**  
-   - Component test ensuring that both "Verdadero" and "Falso" options are visible.
-   - Verify that trying to save without a selection shows a validation error.
-2. **Minimal implementation**
-   - Build the component.
-   - Link to `useFormContext` or local state.
-3. **Refactor**
-   - Ensure consistent styling with other question types.
+1. **Unit Test (Component)**: Verify `TFQuestionEditor` renders "True" and "False" and allows selection.
+2. **E2E Test (Playwright)**: Satisfy `QQ-TEACHER-002-Scenario-1`.
+3. **Implementation**: Build the component and wire it to the page.
 
 ### 3.2 NFR hooks
-- **i18n**: Use "Verdadero" and "Falso" labels in the UI.
+- **a11y**: Ensure keyboard navigation for Radio buttons.
+- **Performance**: Optimistic updates in React Query.
 
 ## 4) Atomic Task Breakdown
 
-### Task 1: TF Question Editor Component
-- **Purpose**: UI for T/F questions (QQ-TEACHER-002-FE-T03).
+### Task 1: API Hook
+- **Purpose**: Manage backend communication.
+- **Artifacts impacted**: `frontend/src/features/quiz-management/api/questionQueries.ts`.
+- **Test types**: MSW + Integration.
+
+### Task 2: TFQuestionEditor Component
+- **Purpose**: Render the T/F question card.
 - **Artifacts impacted**: `frontend/src/features/quiz-management/components/TFQuestionEditor.tsx`.
-- **Test types**: Component.
-- **BDD Acceptance**:
-  - Given the TF editor
-  - When the user selects "Verdadero"
-  - Then the correct answer is marked.
+- **Test types**: Unit.
+
+### Task 3: Documentation Update
+- **Purpose**: Reference the new component in the Architectural Model.
+- **Artifacts impacted**: `@/specs/ArchitecturalModel.md` (Update Component diagram in PlantUML).
+
+# FINAL OUTPUT & REVIEW
+The user will review this document manually after generation. Output the final file content directly.
+
+# JOURNALING PROTOCOL (MANDATORY)
+Upon successful completion of the task, you MUST append a concise entry to @/specs/progress.md with the following format:
+- **Date**: [2026-01-30]
+- **Milestone**: Generated Implementation Plan QQ-TEACHER-002-FE-T03
+- **Artifacts**: specs/features/quiz-management/plan_QQ-TEACHER-002-FE-T03.md

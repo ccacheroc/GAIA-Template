@@ -3,10 +3,10 @@ trigger: model_decision
 description: When working on the User Interface (Frontend)
 ---
 
-# Brand Guidelines — Generic Product UI (Community Management)
+# Brand Guidelines — Generic Product UI 
 **Version:** 1.0 (Draft)  
 **Scope:** Product UI (web/PWA), content, accessibility, and technical implementation rules (Design Tokens).  
-**Audience:** Design, Frontend, Backend (for future emails/notifications), QA.  
+**Audience:** Design, Frontend, Backend, QA.  
 **Goal:** Visual consistency + accessibility + unambiguous technical specs (avoid “interpretation” in handoff).
 
 ---
@@ -31,14 +31,13 @@ description: When working on the User Interface (Frontend)
 
 ### 1.3 Minimum size (digital)
 - **Recommended:** 96 px wide (or more).
-- **Absolute minimum:** 48 px wide (below that, “PAU” loses legibility).
+- **Absolute minimum:** 48 px wide. 
 
 ### 1.4 Allowed backgrounds
 - **Solid** backgrounds: `--color-surface-0` (light) or `--color-surface-0-dark` (dark).
 - Image backgrounds: use a **container box** (card) with padding and a solid surface.
 
 ### 1.5 Incorrect usage (forbidden)
-- Changing logo colors.
 - Stretching/distorting.
 - Applying heavy shadows, glows, outlines, or gradients.
 - Placing it on low-contrast backgrounds without a container.
@@ -46,7 +45,6 @@ description: When working on the User Interface (Frontend)
 ---
 
 ## 2) Color
-> Quality note: the logo colors are attractive, but **NOT all of them are suitable for text or buttons with white text**. For accessibility, “AA” variants are defined for actions and text.
 
 ### 2.1 Base palette (extracted from the logo)
 | Role | Name | Hex | Usage |
@@ -87,10 +85,10 @@ Example (reference only, do not copy/paste as-is):
     small: 0.875rem
 
 ### 3.3 Hierarchy (UI guidance)
-- **H1:** main screens (Home, Issues, News…).
+- **H1:** main screens.
 - **H2/H3:** sections inside a screen.
-- **Body:** reading content (news, instructions, minutes/notes).
-- **Caption:** helpers, metadata (date, author, status).
+- **Body:** reading content.
+- **Caption:** helpers, metadata.
 
 ---
 
@@ -282,5 +280,3 @@ Dark (example):
 - If a color changes: **change the token**, not the component.
 - PRs must include light/dark screenshots and basic a11y verification (at least contrast + focus).
 
----
-**Appendix:** If the system grows, document components in Storybook and keep tokens in JSON as the single source of truth.

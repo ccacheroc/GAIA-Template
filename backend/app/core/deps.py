@@ -4,6 +4,7 @@ from fastapi import Depends
 from app.core.database import get_db, AsyncSession
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.infrastructure.repositories.quiz_repository import SQLAlchemyQuizRepository
+from app.infrastructure.repositories.question_repository import SQLAlchemyQuestionRepository
 
 # [Feature: Quiz Management] [Story: QQ-TEACHER-001] [Ticket: QQ-TEACHER-001-BE-T02]
 
@@ -15,3 +16,6 @@ async def get_current_user() -> UUID:
 
 async def get_quiz_repository(session: AsyncSession = Depends(get_db)) -> SQLAlchemyQuizRepository:
     return SQLAlchemyQuizRepository(session)
+
+async def get_question_repository(session: AsyncSession = Depends(get_db)) -> SQLAlchemyQuestionRepository:
+    return SQLAlchemyQuestionRepository(session)

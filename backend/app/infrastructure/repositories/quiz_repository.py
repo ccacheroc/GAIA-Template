@@ -31,3 +31,9 @@ class SQLAlchemyQuizRepository:
         await self.session.flush()
         await self.session.refresh(quiz)
         return quiz
+
+    async def list_by_teacher(self, teacher_id: UUID) -> list[Quiz]:
+        result = await self.session.execute(
+            select(Quiz).where(Quiz.teacher_id == teacher_id).order_by(Quiz.created_at.desc())
+        )
+        return list(result.scalars().all())

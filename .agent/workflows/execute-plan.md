@@ -17,7 +17,7 @@ You **must not** invent requirements beyond those sources.
 
 You **must**:
 - Mark the ticket as **COMPLETED** in the `tickets.md` associated with the plan once implementation is done.
-- Update @/specs/DataModel.md and @/.agent/rules/architecture.md to reflect any data-model or architectural changes introduced.
+- Update `@/specs/DataModel.md` and `@/specs/ArchitecturalModel.md` to reflect any data-model or architectural changes introduced (create them if they do not exist).
 - Keep specs, rules, and code aligned (avoid spec-code drift).
 
 ---
@@ -58,17 +58,19 @@ F.2) Record progress
 G) Final Summary to the User
 
 Commands must be **explicit, concise, and phase-driven**, not open-ended.
+You MUST verify the current branch and status at the start of ANY session using `git status` and `git branch`.
 
 ---
 
-### 2.1) Phase 0 — Git Initialization (Smart Context Check)
+### 2.1) Phase 0 — Git Initialization (Strict Protocol)
 
-1. **Check Current State**: Run `git branch --show-current`.
-2. **Conditional Logic**:
-   - **CASE A (Already on correct branch)**: If the current branch matches the target `feat/<ticket>` or `fix/<ticket>`, just `git pull origin <current-branch>` to ensure freshness. DO NOT checkout develop.
-   - **CASE B (Starting clean)**: If on `develop` or unrelated branch:
+1. **Mandatory Check**: Run `git status` and `git branch --show-current`. You MUST provide this output to the user.
+2. **Protocol Adherence**: Follow `@/.agent/rules/git-conventions.md` strictly.
+3. **Conditional Logic**:
+   - **CASE A (Correct branch)**: `git pull origin <current-branch>`.
+   - **CASE B (Starting clean)**: 
      - `git checkout develop && git pull origin develop`
-     - `git checkout -b <branch-name>` (follow `git-conventions.md`).
+     - `git checkout -b <prefix>/<ticket-id-lowercase>`
 
 ---
 
@@ -207,16 +209,14 @@ After the code and tests are in place:
 #### 8.2 Architecture & data model docs
 
 If you introduced any changes to:
-
-- The system’s **architecture**, or
+- The system’s **architecture** (new components, containers, or context changes), or
 - The **data model** (entities, tables, relationships, fields),
 
 you **MUST**:
-
-- Update the relevant **Feature Specification** or Project Documentation in `specs/`. 
-  - **DO NOT** update `@/.agent/rules/architecture.md` or `@/specs/DataModel.md` with application-specific details (e.g., specific entities or modules). These files must remain generic.
-  - If you need to document a new module or entity, add it to `specs/features/<feature>/` or a dedicated `specs/` file.
+- Update or create `@/specs/DataModel.md` with the updated Entity-Relationship diagram (Mermaid or PlantUML).
+- Update or create `@/specs/ArchitecturalModel.md` containing the **C4 System Context** and **Component** diagrams in **PlantUML** format.
 - Ensure the documentation in `specs/` reflects the **current state** of the codebase to reduce “spec debt”.
+- **DO NOT** update `@/.agent/rules/architecture.md` with application-specific details; that file must remain a generic guide for layers and patterns.
 
 ---
 
@@ -235,14 +235,15 @@ You **MUST NOT** modify any file in `.agent/rules`, `.agent/skills`, or `.agent/
 3.  Wait for user approval before applying.
 
 ---
-### 9. Phase F.1 - Git Finalization
+### 9. Phase F.1 - Git Finalization (Strict)
 
-Before moving to progress recording, you MUST commit your changes:
+Before moving to progress recording, you MUST commit your changes following the protocol.
 
+1.  **Validation**: Verify that the commit message matches `@/.agent/rules/git-conventions.md`.
 // turbo
-1.  **Stage**: `git add .`
-2.  **Commit**: `git commit -m "<type>: (<ticket-id>) <concise description of changes>"` (Follow @/.agent/rules/git-conventions.md).
-3.  **Push**: `git push origin feat/<ticket-id>` (or your branch name).
+2.  **Stage**: `git add .`
+3.  **Commit**: `git commit -m "<type>: (<ticket-id>) <concise description of changes>"`
+4.  **Push**: `git push origin <branch-name>`
 
 ---
 ### 10. Phase F.2 - Record progress

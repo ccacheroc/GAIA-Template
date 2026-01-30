@@ -2,57 +2,52 @@
 
 **Source ticket**: `specs/features/quiz-management/tickets.md` → **QQ-TEACHER-003-BE-T02**  
 **Related user story**: **QQ-TEACHER-003** (from `specs/features/quiz-management/user-stories.md`)  
-**Plan version**: v1.0 — (Antigravity, 2026-01-30)  
-**Traceability**: All tasks address `QQ-TEACHER-003-BE-T02` and scenarios related to dynamic option management.
+**Plan version**: v1.1 — Antigravity Assistant, 2026-01-30  
+**Traceability**: Satisfies Scenarios of Story QQ-TEACHER-003.
 
 ---
 
 ## 1) Context & Objective
-- **Ticket summary (3–5 lines)**: Implement the backend logic for Multiple Choice questions. This includes handling a variable number of options (2 to 6) and ensuring only one correct answer is selected.
+- **Ticket summary**: Implement API logic to support Multiple Choice questions with configurable options (2 to 6).
 - **Impacted entities/tables**: `questions`, `options`.
-- **Impacted services/modules**: `application/use_cases/question/create_mc_question.py`.
-- **Impacted tests or business flows**: Satisfies `QQ-TEACHER-003` Gherkin scenarios for Multiple Choice content.
+- **Impacted services/modules**: `backend/app/application/use_cases/question/`.
+- **Impacted tests or business flows**: `QQ-TEACHER-003` BDD scenarios.
 
 ## 2) Scope
-- **In scope**: 
-  - `POST /quizzes/{id}/questions` for 'MULTIPLE_CHOICE' type.
-  - Validation: 2 <= options count <= 6.
-  - Validation: exactly one option must be marked `is_correct`.
-  - Atomicity: Question and its options are created in a single transaction.
-- **Out of scope**: UI drag and drop (handled in T04).
-- **Assumptions**: Question metadata (content) is passed in the same request.
+- **In scope**:
+    - Extension of `AddQuestion` use case to support 'MULTIPLE_CHOICE'.
+    - Validation: 2 <= options <= 6.
+    - Exactly one correct answer validation.
+- **Out of scope**: UI components.
 
 ## 3) Detailed Work Plan (TDD + BDD)
 
 ### 3.1 Test-first sequencing
-1. **Define/Update tests**  
-   - Unit tests for the MC creation use case.
-   - Integration tests with valid (4 options) and invalid (1 or 7 options) payloads.
-2. **Minimal implementation**
-   - Implement `CreateMultipleChoiceQuestion` use case.
-   - Attach to the existing quiz router.
-3. **Refactor**
-   - Generalize option validation across question types.
+1. **Unit Test (Use Case)**: `MultipleChoice` must fail if < 2 or > 6 options provided.
+2. **Unit Test (Use Case)**: Must fail if 0 or > 1 correct answers provided.
+3. **Integration Test**: Verify endpoint creates MC question correctly.
+4. **Implementation**: Update use case with logic.
 
 ### 3.2 NFR hooks
-- **Observability**: Log question type distribution for analytics.
+- **Security**: BOLA check for Quiz ID.
+- **Data Integrity**: Validate option content is not empty.
 
 ## 4) Atomic Task Breakdown
 
-### Task 1: MC Question Use Case
-- **Purpose**: Implement the specific behavior for Multiple Choice (QQ-TEACHER-003-BE-T02).
-- **Artifacts impacted**: `backend/app/application/use_cases/question/create_mc_question.py`.
+### Task 1: Use Case Expansion
+- **Purpose**: Add MC specific business rules.
+- **Artifacts impacted**: `backend/app/application/use_cases/question/add_question.py`.
 - **Test types**: Unit.
-- **BDD Acceptance**:
-  - Given an MC payload with 4 options
-  - When the use case runs
-  - Then it should successfully persist all 4 options.
 
-### Task 2: Option Validation Logic
-- **Purpose**: Enforce the 2-6 limit and single-correct rule (QQ-TEACHER-003-BE-T02).
-- **Artifacts impacted**: `backend/app/domain/validators/question_validator.py`.
-- **Test types**: Unit.
-- **BDD Acceptance**:
-  - Given an MC payload with 2 correct answers
-  - When validated
-  - Then it should return "Only one correct answer is allowed".
+### Task 2: Documentation Update
+- **Purpose**: Ensure diagrams reflect the polymorphic question handling.
+- **Artifacts impacted**: `@/specs/ArchitecturalModel.md` (Component PlantUML).
+
+# FINAL OUTPUT & REVIEW
+The user will review this document manually after generation. Output the final file content directly.
+
+# JOURNALING PROTOCOL (MANDATORY)
+Upon successful completion of the task, you MUST append a concise entry to @/specs/progress.md with the following format:
+- **Date**: [2026-01-30]
+- **Milestone**: Generated Implementation Plan QQ-TEACHER-003-BE-T02
+- **Artifacts**: specs/features/quiz-management/plan_QQ-TEACHER-003-BE-T02.md

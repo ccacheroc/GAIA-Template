@@ -2,56 +2,57 @@
 
 **Source ticket**: `specs/features/quiz-management/tickets.md` → **QQ-TEACHER-005-FE-T02**  
 **Related user story**: **QQ-TEACHER-005** (from `specs/features/quiz-management/user-stories.md`)  
-**Plan version**: v1.0 — (Antigravity, 2026-01-30)  
-**Traceability**: All tasks address `QQ-TEACHER-005-FE-T02` and scenarios for publishing workflow.
+**Plan version**: v1.1 — Antigravity Assistant, 2026-01-30  
+**Traceability**: Satisfies Scenarios of Story QQ-TEACHER-005.
 
 ---
 
 ## 1) Context & Objective
-- **Ticket summary (3–5 lines)**: Implement the "Publish" action in the quiz editor. This includes the confirmation dialog, display of validation errors returned by the API, and success feedback.
-- **Impacted entities/tables**: N/A.
+- **Ticket summary**: Implement the "Publish" button and associated workflow. This includes showing validation errors to the user and disabling the editor once the quiz is successfully published.
+- **Impacted entities/tables**: N/A (Frontend).
 - **Impacted services/modules**: `frontend/src/features/quiz-management/components/PublishButton.tsx`.
-- **Impacted tests or business flows**: Satisfies `QQ-TEACHER-005` UI scenarios for publication.
+- **Impacted tests or business flows**: `QQ-TEACHER-005` BDD scenarios.
 
 ## 2) Scope
-- **In scope**: 
-  - "Publish" button with loading state.
-  - Confirmation dialog.
-  - Handling of 422/400 validation error responses and displaying them to the user.
-  - Redirecting or updating UI state after successful publication.
-- **Out of scope**: Preview mode (T03).
-- **Assumptions**: shadcn `AlertDialog` is used for confirmation.
+- **In scope**:
+    - `PublishButton` component with confirmation dialog.
+    - Integration with `usePublishQuiz` mutation.
+    - Displaying validation errors returned by the backend.
+    - Read-only mode for Published quizzes.
+- **Out of scope**: Versioning logic.
 
 ## 3) Detailed Work Plan (TDD + BDD)
 
 ### 3.1 Test-first sequencing
-1. **Define/Update tests**  
-   - Component test for button states (idle, loading, success).
-   - Mock error response and verify error alert display.
-2. **Minimal implementation**
-   - Create `PublishButton` component.
-   - Use `useMutation` with `onError` handling.
-3. **Refactor**
-   - Polishing accessibility and focus traps for the dialog.
+1. **Unit Test (Component)**: Button click opens confirmation.
+2. **E2E Test (Playwright)**: Publish a valid quiz and verify UI becomes read-only.
+3. **E2E Test (Playwright)**: Attempt to publish invalid quiz and verify error display.
+4. **Implementation**: Build components and hooks.
 
 ### 3.2 NFR hooks
-- **Observability**: Track "Publish" attempts and successes/failures.
+- **UX**: Clear distinction between Draft and Published status.
 
 ## 4) Atomic Task Breakdown
 
-### Task 1: Publish Button & Mutation
-- **Purpose**: Action to trigger publication (QQ-TEACHER-005-FE-T02).
+### Task 1: Publish Component
+- **Purpose**: Action trigger.
 - **Artifacts impacted**: `frontend/src/features/quiz-management/components/PublishButton.tsx`.
-- **Test types**: Component.
-- **BDD Acceptance**:
-  - Given the Publish button
-  - When clicked and confirmed
-  - Then the backend `publish` endpoint is called.
+- **Test types**: Unit.
 
-### Task 2: Validation Error Display
-- **Purpose**: Show why a quiz cannot be published (QQ-TEACHER-005-FE-T02).
-- **Artifacts impacted**: `frontend/src/features/quiz-management/components/ValidationErrorDisplay.tsx`.
-- **Test types**: Component.
-- **BDD Acceptance**:
-  - Given a 422 error "Missing questions"
-  - Then a clear alert message "A quiz must have at least one question" is shown.
+### Task 2: Editor Locking Logic
+- **Purpose**: Prevent post-publish edits.
+- **Artifacts impacted**: `frontend/src/features/quiz-management/pages/CreateQuizPage.tsx`.
+- **Test types**: Unit | E2E.
+
+### Task 3: Documentation Update
+- **Purpose**: Update state machine/diagram in Architectural model if applicable.
+- **Artifacts impacted**: `@/specs/ArchitecturalModel.md` (PlantUML Component).
+
+# FINAL OUTPUT & REVIEW
+The user will review this document manually after generation. Output the final file content directly.
+
+# JOURNALING PROTOCOL (MANDATORY)
+Upon successful completion of the task, you MUST append a concise entry to @/specs/progress.md with the following format:
+- **Date**: [2026-01-30]
+- **Milestone**: Generated Implementation Plan QQ-TEACHER-005-FE-T02
+- **Artifacts**: specs/features/quiz-management/plan_QQ-TEACHER-005-FE-T02.md

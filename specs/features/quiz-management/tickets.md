@@ -3,6 +3,10 @@
 This feature allows teachers to create and edit quizzes with different question types (True/False, Multiple Choice).
 
 ---
+### Bug Tracking
+- [x] (2026-01-30) **QQ-BUG-001**: Fix quiz creation connectivity error (CORS & API Prefix).
+- [x] (2026-01-30) **QQ-BUG-002**: Fix 405 Method Not Allowed on GET /quizzes.
+---
 
 ### Story: QQ-TEACHER-001 — Create Quiz Basic Metadata
 **Source**: `user-stories.md`
@@ -32,7 +36,7 @@ This feature allows teachers to create and edit quizzes with different question 
    - **Dependencies**: QQ-TEACHER-001-DB-T01.
    - **Deliverables**: FastAPI routers, Use Cases, Repository implementation, Pydantic DTOs, Unit tests.
 
-3. - [ ] **QQ-TEACHER-001-FE-T03 — Quiz Creation Shell and Header Form**
+3. - [x] (2026-01-30) **QQ-TEACHER-001-FE-T03 — Quiz Creation Shell and Header Form**
    - **Type**: FE
    - **Description**: UI to start a new quiz and edit its header information.
    - **Scope**: 
@@ -52,7 +56,7 @@ This feature allows teachers to create and edit quizzes with different question 
 
 #### Tickets for QQ-TEACHER-002
 
-1. - [ ] **QQ-TEACHER-002-DB-T01 — Schema for Questions and Options**
+1. - [x] (2026-01-30) **QQ-TEACHER-002-DB-T01 — Schema for Questions and Options**
    - **Type**: DB
    - **Description**: Create tables to support polymorphic question types and their options.
    - **Scope**: 
@@ -61,7 +65,7 @@ This feature allows teachers to create and edit quizzes with different question 
    - **Dependencies**: QQ-TEACHER-001-DB-T01.
    - **Deliverables**: Alembic migration script.
 
-2. - [ ] **QQ-TEACHER-002-BE-T02 — API for True/False Questions**
+2. - [x] (2026-01-30) **QQ-TEACHER-002-BE-T02 — API for True/False Questions**
    - **Type**: BE
    - **Description**: Logic to create T/F questions with exactly two options.
    - **Scope**: 
@@ -70,7 +74,7 @@ This feature allows teachers to create and edit quizzes with different question 
    - **Dependencies**: QQ-TEACHER-002-DB-T01.
    - **Deliverables**: Question Use Cases, Repository methods for Questions/Options, Unit tests.
 
-3. - [ ] **QQ-TEACHER-002-FE-T03 — True/False Question UI**
+3. - [x] (2026-01-30) **QQ-TEACHER-002-FE-T03 — True/False Question UI**
    - **Type**: FE
    - **Description**: Component to render and edit T/F questions in the editor.
    - **Scope**: 
@@ -91,7 +95,7 @@ This feature allows teachers to create and edit quizzes with different question 
 
 #### Tickets for QQ-TEACHER-003
 
-1. - [ ] **QQ-TEACHER-003-DB-T01 — Options Validation Constraints**
+1. - [x] (2026-01-30) **QQ-TEACHER-003-DB-T01 — Options Validation Constraints**
    - **Type**: DB
    - **Description**: Ensure data integrity for options at the database level.
    - **Scope**: 
@@ -99,7 +103,7 @@ This feature allows teachers to create and edit quizzes with different question 
    - **Dependencies**: QQ-TEACHER-002-DB-T01.
    - **Deliverables**: Alembic migration (adding constraints/indices if applicable).
 
-2. - [ ] **QQ-TEACHER-003-BE-T02 — API for Multiple Choice Questions**
+2. - [x] (2026-01-30) **QQ-TEACHER-003-BE-T02 — API for Multiple Choice Questions**
    - **Type**: BE
    - **Description**: Support dynamic option management for Multiple Choice type.
    - **Scope**: 
@@ -109,7 +113,7 @@ This feature allows teachers to create and edit quizzes with different question 
    - **Dependencies**: QQ-TEACHER-003-DB-T01.
    - **Deliverables**: Use cases for Multiple Choice creation/update.
 
-3. - [ ] **QQ-TEACHER-003-FE-T03 — Multiple Choice Question UI**
+3. - [x] (2026-01-30) **QQ-TEACHER-003-FE-T03 — Multiple Choice Question UI**
    - **Type**: FE
    - **Description**: Dynamic form to handle 2 to 6 options.
    - **Scope**: 

@@ -2,43 +2,50 @@
 
 **Source ticket**: `specs/features/quiz-management/tickets.md` → **QQ-TEACHER-003-DB-T01**  
 **Related user story**: **QQ-TEACHER-003** (from `specs/features/quiz-management/user-stories.md`)  
-**Plan version**: v1.0 — (Antigravity, 2026-01-30)  
-**Traceability**: All tasks address `QQ-TEACHER-003-DB-T01` and scenario `Adjusting the number of options (Limit 2-6)`.
+**Plan version**: v1.1 — Antigravity Assistant, 2026-01-30  
+**Traceability**: Provides database integrity for Story QQ-TEACHER-003 (Multiple Choice).
 
 ---
 
 ## 1) Context & Objective
-- **Ticket summary (3–5 lines)**: Reinforce data integrity for questions with multiple options. Ensure that the database level validates or facilitates the business rule of having between 2 and 6 options per question.
+- **Ticket summary**: Ensure data integrity for options at the database level. Add constraints to prevent more than one correct answer per question for single-choice types.
 - **Impacted entities/tables**: `options`.
-- **Impacted services/modules**: N/A (DB Level).
-- **Impacted tests or business flows**: Guarantees consistent state even if application-level checks fail.
+- **Impacted services/modules**: `backend/app/infrastructure/models/quiz.py`.
+- **Impacted tests or business flows**: Foundation for Multiple Choice reliability.
 
 ## 2) Scope
-- **In scope**: 
-  - Verification of existing foreign keys and constraints.
-  - Adding a check constraint (if feasible in Postgres via trigger or application-level transaction checks) to ensure 2 <= options <= 6 per question.
-- **Out of scope**: UI validation.
-- **Assumptions**: Using Postgres 13+.
-- **Open questions**: Does SQLAlchemy support cross-row constraints easily? (Likely handled via domain logic in BE, but DB can have a trigger for safety).
+- **In scope**:
+    - Addition of partial index or check constraint (if DB supports it) to ensure only one `is_correct=True` per `question_id`.
+    - Alembic migration.
+- **Out of scope**: API Logic.
+- **Assumptions**: Using PostgreSQL (supports partial indices).
 
 ## 3) Detailed Work Plan (TDD + BDD)
 
 ### 3.1 Test-first sequencing
-1. **Define/Update tests**  
-   - Integration test attempting to insert a 7th option for a question. 
-   - Verify that the DB or repository layer blocks this.
-2. **Minimal implementation**
-   - Implement the domain validation in the Repository/Use Case (as DB-level cross-row constraints are complex).
-   - *Alternative*: Implement a DB Trigger for strict enforcement.
-3. **Refactor**
-   - Ensure clear error messaging.
+1. **Integration Test**: Create a test attempt to insert two correct options for one question and verify DB error.
+2. **Migration**: Generate Alembic migration with `Index('ix_one_correct', 'question_id', postgres_where=(is_correct == True), unique=True)`.
+3. **Verification**: Run migration and observe test pass.
+
+### 3.2 NFR hooks
+- **Security**: Data integrity is a security concern (prevents malformed quiz states).
 
 ## 4) Atomic Task Breakdown
 
-### Task 1: Domain-Level Option Count Enforcement
-- **Purpose**: Enforce the 2-6 boundary at the boundary of the domain (QQ-TEACHER-003-DB-T01).
-- **Artifacts impacted**: `backend/app/domain/entities/question.py`.
-- **BDD Acceptance**:
-  - Given a Question with 6 options
-  - When trying to add a 7th
-  - Then a DomainError should be raised.
+### Task 1: Migration and Index
+- **Purpose**: Enforce single correct answer at DB level.
+- **Artifacts impacted**: `backend/alembic/versions/`.
+- **Test types**: Integration.
+
+### Task 2: Documentation Update
+- **Purpose**: Document the constraint in the data model.
+- **Artifacts impacted**: `@/specs/DataModel.md`. (Update Entity constraints).
+
+# FINAL OUTPUT & REVIEW
+The user will review this document manually after generation. Output the final file content directly.
+
+# JOURNALING PROTOCOL (MANDATORY)
+Upon successful completion of the task, you MUST append a concise entry to @/specs/progress.md with the following format:
+- **Date**: [2026-01-30]
+- **Milestone**: Generated Implementation Plan QQ-TEACHER-003-DB-T01
+- **Artifacts**: specs/features/quiz-management/plan_QQ-TEACHER-003-DB-T01.md

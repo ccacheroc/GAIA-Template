@@ -9,6 +9,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # Keep the container running even if main.py is missing/failing initially
-# CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
-# For now, since main.py doesn't exist, we'll just tail null
-CMD ["tail", "-f", "/dev/null"]
+# Run the application
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+

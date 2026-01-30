@@ -6,7 +6,7 @@ trigger: always_on
 
 A work item is not "Done" unless all of these are true:
 
-- **Conforms to workspace rules:** `.agent/rules/Arquitectura.md`, `.agent/rules/OperationalPhilosophy.md` and `.agent/rules/techstack.md` are respected.
+- **Conforms to workspace rules:** `.agent/rules/architecture.md`, `.agent/rules/OperationalPhilosophy.md` and `.agent/rules/techstack.md` are respected.
 - **No broken build:** project starts, runs, and basic flows work locally.
 - **No known errors:** no unhandled exceptions in backend logs; no runtime errors in browser console for the implemented flow.
 - **Documentation is consistent:** relevant specs are updated (only with explicit developer authorization).
@@ -54,17 +54,8 @@ A **feature** can be marked as Done when:
 
 
 
----
 
-## 4) Authorization rule for documentation updates
-
-- Workflows **may propose** updates to `specs/` and `.agent/` artifacts.
-- The agent **must not apply** those updates unless the developer gives **explicit permission**.
-- If permission is not granted, the agent should output a **suggested diff** or a list of proposed updates for manual application.
-
----
-
-## 5) Quick checklists 
+## 4) Quick checklists 
 
 ### Ticket Done checklist (short)
 - [ ] Scope implemented

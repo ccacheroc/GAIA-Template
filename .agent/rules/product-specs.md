@@ -1,5 +1,5 @@
 ---
-trigger: model_decision
+trigger: always_on
 description: when defining, implementing, or verifying any feature or business logic
 ---
 
@@ -10,8 +10,10 @@ description: when defining, implementing, or verifying any feature or business l
 ## Directory Structure
 
 - **`specs/PRD.md`**: High-level vision, core modules, and non-functional requirements.
+- **`specs/DataModel.md`**: current datamodel of the app being developed. 
+- **`specs/ArchitecturalModel.md`**: current architectural model of the app being developed. 
 - **`specs/UserStories.md`**: High-level backlog and user story definitions.
-- **`specs/features/<feature-name>/`**: Detailed granular specifications, tickets, and acceptance criteria for specific features.
+- **`specs/features/<feature-name>/`**: Detailed granular user stories, tickets and implementation plans (one per ticket) for specific features.
 - **`specs/progress.md`**: Log of delivered milestones.
 
 ## Guidelines

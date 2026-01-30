@@ -137,6 +137,7 @@ When new scripts are added to `package.json`, this list MUST be updated in the s
 - No styled-components / CSS modules / new CSS files for component styling.
 - No direct API calls inside components without React Query hooks.
 - No hardcoded brand colors.
+- **No references to specific application names** (e.g., "Neighborhood Association") in rules. Use "Application" or $APP_NAME.
 
 ## Folder Structure (Canonical within `frontend/src/`)
 This structure is mandatory to avoid drift as the app grows:
@@ -149,7 +150,7 @@ This structure is mandatory to avoid drift as the app grows:
   - `ui/` (shadcn components only)
   - `common/` (shared, app-specific components)
 - `features/` (vertical slices)
-  - `auth/`, `news/`, `events/`, `users/`, `consultations/`, `landing/`
+  - `[feature-name]/` (e.g., `dashboard/`, `quiz-creation/`)
   - Each feature MUST match a `specs/features/<slug>` entry.
   - Allowed structure: `api/`, `components/`, `hooks/`, `pages/`, `types.ts`
   - **Forbidden**: `src/pages/admin`, `src/pages/member` (Role-based folders are banned; organization is by Feature).

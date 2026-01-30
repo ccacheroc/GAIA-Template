@@ -30,9 +30,10 @@ description: Fix small errors in the code base with full traceability and SDD co
 2. **Propose Ticket ID**: Define the ID `<ACRONYM>-BUG-<NN>` to be used (e.g., `UM-BUG-001`).
    *Do not write to files yet.*
 
-### Step 2 — Git Preparation (Branching)
-1. **Sync**: `git checkout develop && git pull origin develop`
-2. **Branch**: `git checkout -b fix/<ticket-id-lowercase>` (e.g., `fix/um-bug-001`).
+### Step 2 — Git Preparation (Strict Protocol)
+1. **Initial Check**: `git status` and `git branch`. Provide output to user.
+2. **Sync**: `git checkout develop && git pull origin develop`
+3. **Branch**: `git checkout -b fix/<ticket-id-lowercase>` (following `@/.agent/rules/git-conventions.md`).
    *Now all documentation and code changes will be isolated.*
 
 ### Step 3 — Formalize Artifacts (In Branch)

@@ -16,6 +16,7 @@ import os
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
 from app.infrastructure.db.base import Base
+from app.infrastructure.models.user import User
 from app.infrastructure.models.quiz import Quiz  # Import to register
 
 # Interpret the config file for Python logging.

@@ -1,9 +1,12 @@
 ---
-description: 
+description: Generates a detailed implementation plan (plan_TICKET_ID.md) from a ticket, ensuring adherence to all project rules and skills.
 ---
 
-# 0. STRICT ADHERENCE TO CONSTITUTION (MANDATORY)
-You MUST load and strictly adhere to the rules and guidelines defined in the @/.agent/rules directory. These rules effectively operate as a logical linter. Any deviation from these rules is strictly forbidden.
+# 0. COMPREHENSIVE CONTEXT & CONSTITUTION ADHERENCE (MANDATORY)
+You MUST perform a deep discovery of the `.agent/` directory before generating the plan:
+1. **Rules**: Strictly adhere to all rules in `@/.agent/rules/`. They operate as a logical linter; any deviation is forbidden.
+2. **Skills**: Identify and read all relevant skills in `@/.agent/skills/` (e.g., `frontend-design`, `brand-identity`, `backend-testing`). You MUST integrate the specific "know-how" and constraints of these skills into the implementation steps.
+3. **Internal consistency**: Ensure the plan is consistent with the project's current state and specific architectures defined in the rules.
 
 # Rol
 You are a senior technical planner with deep expertise in databases, backend, frontend, TDD, and BDD. 
@@ -42,7 +45,7 @@ Produce a single Markdown file per ticket named exactly:
 - Specify measurable NFR hooks (security, performance, a11y, i18n, observability) where applicable.
 - Require documentation updates after coding:
   1) **@/specs/DataModel.md** (data model, entities/tables, constraints, Mermaid ER diagram).  
-  2) **@/.agent/rules/architecture.md** (high-level architecture, Clean/Hexagonal layers, auth/authorization, C4/Component Mermaid diagram with User Management).
+  2) **@/specs/ArchitecturalModel.md** (high-level architecture, Clean/Hexagonal layers, auth/authorization, C4/Component diagram in PlantUML).
 
 When updating docs, **integrate without deleting or contradicting** existing content: add sections, extend lists, keep a coherent structure.
 
