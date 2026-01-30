@@ -213,18 +213,26 @@ If you introduced any changes to:
 
 you **MUST**:
 
-- Update @/.agent/rules/Arquitectura.md to reflect architectural changes (new components, layers, interactions).
-- Update @/.agent/rules/ModeloDatos.md to reflect data model changes (new entities, fields, relationships).
-- Ensure the documentation reflects the **current state** of the codebase to reduce “spec debt”.
+- Update the relevant **Feature Specification** or Project Documentation in `specs/`. 
+  - **DO NOT** update `@/.agent/rules/Arquitectura.md` or `@/.agent/rules/ModeloDatos.md` with application-specific details (e.g., specific entities or modules). These files must remain generic.
+  - If you need to document a new module or entity, add it to `specs/features/<feature>/` or a dedicated `specs/` file.
+- Ensure the documentation in `specs/` reflects the **current state** of the codebase to reduce “spec debt”.
 
 ---
 
-#### 8.3 Rules / .agent updates
+#### 8.3 Governance of .agent Artifacts (Rules, Skills, Workflows)
 
-If your changes imply updates to any @/.agent/rules or similar system rule files:
+You **MUST NOT** modify any file in `.agent/rules`, `.agent/skills`, or `.agent/workflows` **UNLESS ALL** of the following conditions are met:
 
-- Call this out explicitly in your summary.
-- Apply the corresponding update to keep the Memory Bank / Constitution consistent with the code.
+1.  **Explicit Authorization**: The user has explicitly authorized the update or you have asked for permission and received it.
+2.  **Ambiguity or Gap**: The update resolves a proven ambiguity or fills a missing *generic* instruction that applies to *any* project with this tech stack.
+3.  **Reusable**: The update contains **NO** application-specific logic (e.g., specific entities, business rules, or project names). Rules, Skills, and Workflows must remain reusable templates.
+4.  **Correct Location**: Application-specific documentation MUST go into `specs/` (e.g., `specs/features`, `specs/PRD.md`), NOT in `.agent/`.
+
+**If you detect a need to update these artifacts:**
+1.  Propose the change in your summary.
+2.  Explain *why* it is necessary (ambiguity, gap) and *how* it remains generic.
+3.  Wait for user approval before applying.
 
 ---
 ### 9. Phase F.1 - Git Finalization
@@ -287,6 +295,7 @@ You **must NOT**:
 - Omit traceability comments on relevant code blocks.
 - Create new code where equivalent code already exists and can be reused.
 - Modify `plan_<ticket-id>.md` in this workflow (plans are authored/updated in a different phase of the SDD lifecycle).
-- Forget to update modelo-datos.md or architecture.md if changes to the data model or the app architecture have been performed as a consequence of implementing the current plan. 
+- Pollute `@/.agent/rules/` artifacts with application-specific rules or models (use `specs/` instead).
+- Modify any file in `@/.agent/` (Rules, Skills, Workflows) without explicit user authorization and a valid reason (fixing ambiguity/generic gap). 
 - Forget to update @/specs/progress.md 
 - Forget to mark the task as COMPLETED inside the corresponding file tickets.md after generating the code.  
