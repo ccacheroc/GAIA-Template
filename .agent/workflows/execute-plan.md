@@ -120,6 +120,7 @@ Implement strictly **task by task** using a TDD-oriented loop. For each task:
    - Keep tests deterministic; reuse existing test utilities/patterns
 3. Run tests and observe failure for the right reason (when feasible).
 4. Implement production code:
+   - **Directory Creation**: If the code belongs to a new path, ensure the directory structure exists before creating the file.
    - Touch only modules required by the task
    - Reuse existing abstractions/services/repositories/DTOs/helpers when possible
    - Respect layer boundaries (domain/application/infrastructure, etc.)
