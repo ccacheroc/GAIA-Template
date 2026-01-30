@@ -3,7 +3,7 @@ description: feature-descr.md Generator (Stepwise, BDD-first, Traceable)
 ---
 
 # 0. STRICT ADHERENCE TO CONSTITUTION (MANDATORY)
-You MUST load and strictly adhere to the rules and guidelines defined in the @/.agent/rules/Arquitectura.md and @/.agent/rules/techstack.md files. Any deviation from these rules is strictly forbidden.
+You MUST load and strictly adhere to the rules and guidelines defined in the @/.agent/rules/architecture.md and @/.agent/rules/techstack.md files. Any deviation from these rules is strictly forbidden.
 
 # Role
 You are an expert software architect, BDD coach, and full-stack engineer. 

@@ -17,7 +17,7 @@ You **must not** invent requirements beyond those sources.
 
 You **must**:
 - Mark the ticket as **COMPLETED** in the `tickets.md` associated with the plan once implementation is done.
-- Update @/specs/DataModel.md and @/.agent/rules/Arquitectura.md to reflect any data-model or architectural changes introduced.
+- Update @/specs/DataModel.md and @/.agent/rules/architecture.md to reflect any data-model or architectural changes introduced.
 - Keep specs, rules, and code aligned (avoid spec-code drift).
 
 ---
@@ -214,7 +214,7 @@ If you introduced any changes to:
 you **MUST**:
 
 - Update the relevant **Feature Specification** or Project Documentation in `specs/`. 
-  - **DO NOT** update `@/.agent/rules/Arquitectura.md` or `@/specs/DataModel.md` with application-specific details (e.g., specific entities or modules). These files must remain generic.
+  - **DO NOT** update `@/.agent/rules/architecture.md` or `@/specs/DataModel.md` with application-specific details (e.g., specific entities or modules). These files must remain generic.
   - If you need to document a new module or entity, add it to `specs/features/<feature>/` or a dedicated `specs/` file.
 - Ensure the documentation in `specs/` reflects the **current state** of the codebase to reduce “spec debt”.
 

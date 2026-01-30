@@ -10,7 +10,7 @@ description: Performs technical discovery to identify reusable components, logic
 
 ## 0. STRICT ADHERENCE TO CONSTITUTION (MANDATORY)
 You MUST load and strictly adhere to:
-- @/.agent/rules/Arquitectura.md
+- @/.agent/rules/architecture.md
 - @/specs/DataModel.md
 - @/.agent/rules/OperationalPhilosophy.md
 - @/.agent/rules/techstack.md
@@ -27,7 +27,7 @@ You MUST load and strictly adhere to:
 ### Step 1 — Knowledge Base Analysis
 1. Read `@/specs/PRD.md` and the target `feature-descr.md`.
 2. Inspect `@/specs/DataModel.md` to identify overlapping entities or similar data patterns.
-3. Inspect `@/.agent/rules/Arquitectura.md` to identify existing interaction patterns (e.g., how other modules handle uploads or notifications).
+3. Inspect `@/.agent/rules/architecture.md` to identify existing interaction patterns (e.g., how other modules handle uploads or notifications).
 
 ### Step 2 — Codebase Exploration (Backend)
 1. **Search**: Use `grep_search` or `find_by_name` in `backend/app/` to find:

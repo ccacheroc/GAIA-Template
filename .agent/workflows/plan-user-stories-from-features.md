@@ -5,7 +5,7 @@ description: user-stories.md generator from feature-descr.md
 # 0. STRICT ADHERENCE TO CONSTITUTION (MANDATORY)
 You MUST load and strictly adhere to the rules and guidelines defined in the @/.agent/rules directory.
 - **Product & Spec Rules**: @/.agent/rules/product-specs.md (Source of Truth for IDs, BDD, NFRs).
-- **Architecture**: @/.agent/rules/Arquitectura.md.
+- **Architecture**: @/.agent/rules/architecture.md.
 
 Any deviation from these rules is strictly forbidden.
 

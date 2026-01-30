@@ -5,7 +5,7 @@ description: Flujo de trabajo agnóstico que en base al archivo technical-stack.
 ### 0. STRICT ADHERENCE TO CONSTITUTION (MANDATORY)
 You MUST load and strictly adhere to the rules defined in the @/.agent/rules/ directory.
 *   **Technology Source:** You must read @/.agent/rules/techstack.md to determine the allowed Frontend Framework, CSS Strategy (e.g., Utility classes, CSS-in-JS, BEM), and Language Standard (e.g., TypeScript strictness).
-*   **Pattern Source:** You must read @/.agent/rules/Arquitectura.md to understand the component architecture (e.g., Atomic Design, Container/Presentational pattern).
+*   **Pattern Source:** You must read @/.agent/rules/architecture.md to understand the component architecture (e.g., Atomic Design, Container/Presentational pattern).
 *   **Brand Identity:** You must reference @/.agent/skills/brand-identity/SKILL.md to ensure the visual adaptation follows the established design tokens.
 
 ### Role

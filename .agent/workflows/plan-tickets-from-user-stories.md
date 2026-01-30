@@ -5,7 +5,7 @@ description: tickets.md generator from user-stories.md
 # 0. STRICT ADHERENCE TO CONSTITUTION (MANDATORY)
 You MUST load and strictly adhere to the rules and guidelines defined in the @/.agent/rules directory.
 - **Product & Ticket Rules**: @/.agent/rules/product-specs.md (Source of Truth for Ticket IDs, Types, and Slicing).
-- **Architecture**: @/.agent/rules/Arquitectura.md.
+- **Architecture**: @/.agent/rules/architecture.md.
 - **Tech Stack**: @/.agent/rules/techstack-backend.md & @/.agent/rules/techstack-frontend.md.
 
 Any deviation from these rules is strictly forbidden.
