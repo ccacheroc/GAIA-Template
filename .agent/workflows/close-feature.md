@@ -45,7 +45,7 @@ You MUST load and strictly adhere to:
 
 ### Step 4 — Documentation Update
 1. **Action**: Ensure `specs/PRD.md` and `specs/UserStories.md` reflect the "Shipped" status of this feature.
-2. **Action**: Verify that `@/.agent/rules/ModeloDatos.md` and `@/.agent/rules/Arquitectura.md` were updated by the previous implementation tickets.
+2. **Action**: Verify that `@/specs/ModeloDatos.md` and `@/.agent/rules/Arquitectura.md` were updated by the previous implementation tickets.
 
 ### Step 5 — Produce Closure Report
 Generate a summary Markdown report in the response:

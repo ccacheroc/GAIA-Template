@@ -41,7 +41,7 @@ Produce a single Markdown file per ticket named exactly:
 - Embed **traceability** to the ticket and user story.
 - Specify measurable NFR hooks (security, performance, a11y, i18n, observability) where applicable.
 - Require documentation updates after coding:
-  1) **@/.agent/rules/ModeloDatos.md** (data model, entities/tables, constraints, Mermaid ER diagram).  
+  1) **@/specs/ModeloDatos.md** (data model, entities/tables, constraints, Mermaid ER diagram).  
   2) **@/.agent/rules/Arquitectura.md** (high-level architecture, Clean/Hexagonal layers, auth/authorization, C4/Component Mermaid diagram with User Management).
 
 When updating docs, **integrate without deleting or contradicting** existing content: add sections, extend lists, keep a coherent structure.
