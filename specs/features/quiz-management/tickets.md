@@ -21,7 +21,7 @@ This feature allows teachers to create and edit quizzes with different question 
    - **Dependencies**: None.
    - **Deliverables**: Alembic migration script.
 
-2. - [ ] **QQ-TEACHER-001-BE-T02 — CRUD API for Quiz metadata**
+2. - [x] (2026-01-30) **QQ-TEACHER-001-BE-T02 — CRUD API for Quiz metadata**
    - **Type**: BE
    - **Description**: Implement basic endpoints to create and retrieve quiz metadata.
    - **Scope**: 

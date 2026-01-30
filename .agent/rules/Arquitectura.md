@@ -67,3 +67,9 @@ graph TD
     UC --> Entity
 
 ```
+
+## Module Interaction: Quiz Management
+
+- **Quiz Lifecycle**: DRAFT -> PUBLISHED.
+- **Authorization (BOLA)**: Strict ownership checks implemented in Presentation/Application layer. Teachers can only edit/view their own quizzes until published (student view).
+- **Entities**: `Quiz`, `Question` (Polymorphic: TF, MultipleChoice), `Option`.
