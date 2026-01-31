@@ -25,7 +25,7 @@ This feature implements the identity layer for teachers. It provides registratio
    - **Dependencies**: AUTH-TEACHER-001-DB-T01.
    - **Deliverables**: Signup UseCase, API Router, and Integration Tests.
 
-3. - [ ] **AUTH-TEACHER-001-FE-T03 — Signup Page Implementation**
+3. - [x] (2026-01-31) **AUTH-TEACHER-001-FE-T03 — Signup Page Implementation**
    - **Type**: FE
    - **Description**: Create the user interface for teacher registration.
    - **Scope**: Reusable form components, Zod validation, Spanish translations, redirect to login.

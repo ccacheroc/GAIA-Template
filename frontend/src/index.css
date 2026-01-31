@@ -68,6 +68,14 @@
   --input: 255.6 23.9% 90%;
   --ring: 24.3 61.8% 43.1%;
   --radius: 0.5rem;
+
+  /* Brand Specifics */
+  --brand-navy: 255.6 23.9% 22.2%;
+  --brand-terracotta: 24.3 62% 46%;
+  --brand-terracotta-aa: 24.3 61.8% 43.1%;
+  --brand-green: 82.6 46.0% 51.4%;
+  --brand-green-aa: 82.6 46.0% 34%;
+  --warm-white: 40 60% 99%;
 }
 
 .dark {
