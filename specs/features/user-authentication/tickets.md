@@ -40,7 +40,7 @@ This feature implements the identity layer for teachers. It provides registratio
 
 #### Tickets for AUTH-TEACHER-002
 
-1. - [ ] **AUTH-TEACHER-002-BE-T01 — Authentication API (JWT)**
+1. - [x] (2026-01-31) **AUTH-TEACHER-002-BE-T01 — Authentication API (JWT)**
    - **Type**: BE
    - **Description**: Implement login logic and session token generation.
    - **Scope**: POST `/auth/login` endpoint, password verification, JWT issuance (short-lived).

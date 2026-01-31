@@ -125,3 +125,8 @@ This file logs all major milestones and successful task completions.
 - **Outcome**: Implemented responsive Signup UI with brand colors (Navy/Terracotta), Zod validation (password confirmation), and integration with Registration API.
 - **Artifacts**: `frontend/src/features/auth/pages/RegisterPage.tsx`, `frontend/src/features/auth/schemas/authSchema.ts`.
 - **Verification**: Playwright E2E tests `frontend/tests/e2e/specs/register.spec.ts` **PASSED** (Happy Path + Validation). Duplicate email check failing on toast visibility (pending investigation).
+
+- **Ticket**: AUTH-TEACHER-002-BE-T01 - Authentication API (JWT)
+- **Outcome**: Implemented Login flow with JWT generation (pyjwt+argon2). Created Config (pydantic-settings), Token schemas, and LoginTeacher Use Case.
+- **Artifacts**: `backend/app/application/use_cases/auth/login_teacher.py`, `backend/app/domain/services/security.py`, `backend/app/presentation/routers/auth.py`, `backend/app/core/config.py`.
+- **Verification**: Integration tests `backend/tests/integration/test_auth_api.py` **PASSED** (Login Success/Failure). Updated tests to be idempotent.

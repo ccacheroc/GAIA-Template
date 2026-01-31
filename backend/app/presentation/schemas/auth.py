@@ -10,6 +10,10 @@ class UserRegister(BaseModel):
     password: str = Field(..., min_length=8)
     full_name: Optional[str] = None
 
+class UserLogin(BaseModel):
+    email: EmailStr
+    password: str
+
 class UserRead(BaseModel):
     id: uuid.UUID
     email: EmailStr
