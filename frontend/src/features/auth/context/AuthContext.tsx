@@ -26,21 +26,26 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        const token = localStorage.getItem('token');
-        if (token) {
-            try {
-                const decoded = jwtDecode<User>(token);
-                // Check expiration
-                if (decoded.exp * 1000 < Date.now()) {
+        try {
+            const token = localStorage.getItem('token');
+            if (token) {
+                try {
+                    const decoded = jwtDecode<User>(token);
+                    // Check expiration
+                    if (decoded.exp * 1000 < Date.now()) {
+                        logout();
+                    } else {
+                        setUser(decoded);
+                    }
+                } catch (error) {
                     logout();
-                } else {
-                    setUser(decoded);
                 }
-            } catch (error) {
-                logout();
             }
+        } catch (e) {
+            console.error('LocalStorage access blocked', e);
+        } finally {
+            setIsLoading(false);
         }
-        setIsLoading(false);
     }, []);
 
     const login = async (data: LoginInput) => {

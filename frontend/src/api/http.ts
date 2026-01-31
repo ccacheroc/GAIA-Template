@@ -9,6 +9,15 @@ export const http = axios.create({
     },
 });
 
+// Request interceptor to inject token
+http.interceptors.request.use((config) => {
+    const token = localStorage.getItem('token');
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+});
+
 // Response interceptor for error mapping (e.g., 401 logout)
 http.interceptors.response.use(
     (response) => response,
