@@ -55,3 +55,9 @@ This file logs all major milestones and successful task completions.
 - **Milestone**: Regenerated 12 Implementation Plans for Quiz Management
 - **Outcome**: Plans were updated to include mandatory documentation updates (DataModel.md and ArchitecturalModel.md in PlantUML) as per revised project governance rules.
 - **Artifacts**: `specs/features/quiz-management/plan_QQ-TEACHER-002-DB-T01.md` through `plan_QQ-TEACHER-005-FE-T03.md`.
+
+### [2026-01-31]
+- **Ticket**: QQ-TEACHER-004-BE-T01 - Batch Reorder API
+- **Outcome**: Implemented PATCH /quizzes/{id}/reorder endpoint with transactional safety. Updated Question repository and added Use Case.
+- **Artifacts**: `backend/app/application/use_cases/question/reorder_questions.py`, `backend/app/presentation/routers/quiz.py`, `backend/app/domain/repositories/question_repository.py`.
+- **Verification**: Integration tests `backend/tests/integration/test_reorder_questions.py` **PASSED** (Happy Path + Validation + Security).
