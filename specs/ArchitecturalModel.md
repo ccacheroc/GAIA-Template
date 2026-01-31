@@ -60,12 +60,17 @@ Rel(infra, db, "SQL", "TCP")
 title Frontend Component Diagram
  
 Container_Boundary(frontend_boundary, "Frontend (React)") {
-    Component(queries, "API Layer (React Query)", "Hooks", "Manages server state (useCreateQuestion, etc.)")
+    Component(pages, "Pages", "React Components", "QuizEditorPage")
+    Component(queries, "API Layer (React Query)", "Hooks", "useReorderQuestions, useCreateQuestion")
     Component(editors, "Question Editors", "React Components", "TFQuestionEditor, MCQuestionEditor")
+    Component(lists, "Question Lists", "React Components", "QuestionList (DnD)")
     Component(forms, "Form Management", "React Hook Form + Zod", "Validates input (questionSchema)")
 }
  
+Rel(pages, lists, "Renders")
+Rel(pages, editors, "Renders")
 Rel(editors, queries, "Uses")
+Rel(lists, queries, "Uses (Reorder)")
 Rel(editors, forms, "Uses")
  
 @enduml

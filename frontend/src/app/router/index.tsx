@@ -1,5 +1,6 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
 import CreateQuizPage from '@/features/quiz-management/pages/CreateQuizPage';
+import QuizEditorPage from '@/features/quiz-management/pages/QuizEditorPage';
 import { Toaster } from '@/components/ui/sonner';
 
 export const router = createBrowserRouter([
@@ -19,11 +20,10 @@ export const router = createBrowserRouter([
     {
         path: '/quizzes/:id/edit',
         element: (
-            <div className="container py-12 text-center">
-                <h1 className="text-3xl font-bold">Editor de Quiz (Próximamente)</h1>
-                <p className="text-muted-foreground mt-4">Aquí podrás añadir preguntas a tu quiz.</p>
+            <>
+                <QuizEditorPage />
                 <Toaster position="top-right" richColors />
-            </div>
+            </>
         ),
     },
 ]);

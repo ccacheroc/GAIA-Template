@@ -141,7 +141,7 @@ This feature allows teachers to create and edit quizzes with different question 
    - **Dependencies**: QQ-TEACHER-002-BE-T02.
    - **Deliverables**: Reorder Use Case, atomic DB transaction implementation.
 
-2. - [ ] **QQ-TEACHER-004-FE-T02 — Drag and Drop Question Sorting**
+2. - [x] (2026-01-31) **QQ-TEACHER-004-FE-T02 — Frontend Reordering Interactions**
    - **Type**: FE
    - **Description**: Implementing visual reordering in the queston list using `dnd-kit` or similar.
    - **Scope**: 

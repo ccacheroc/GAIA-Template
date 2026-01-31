@@ -30,3 +30,31 @@ export const useUpdateQuiz = (quizId: string) => {
         },
     });
 };
+
+import { useQuery } from '@tanstack/react-query';
+import type { QuestionResponse } from '../types';
+
+export interface QuizDetail extends Quiz {
+    questions: QuestionResponse[];
+}
+
+export const useQuiz = (quizId: string) => {
+    return useQuery({
+        queryKey: ['quiz', quizId],
+        queryFn: async () => {
+            const response = await http.get<QuizDetail>(`/quizzes/${quizId}`);
+            return response.data;
+        },
+        enabled: !!quizId,
+    });
+};
+
+export const useQuizzes = () => {
+    return useQuery({
+        queryKey: ['quizzes'],
+        queryFn: async () => {
+            const response = await http.get<Quiz[]>('/quizzes');
+            return response.data;
+        },
+    });
+};

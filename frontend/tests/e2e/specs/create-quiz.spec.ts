@@ -25,12 +25,27 @@ test.describe('Quiz Creation Flow', () => {
             await route.fulfill({ json });
         });
 
+        // Mock GET quiz response for the editor page
+        await page.route('**/api/v1/quizzes/123e4567-e89b-12d3-a456-426614174000', async route => {
+            const json = {
+                id: '123e4567-e89b-12d3-a456-426614174000',
+                teacher_id: '123e4567-e89b-12d3-a456-426614174001',
+                title: 'E2E Quiz',
+                description: 'Created via Playwright',
+                status: 'DRAFT',
+                created_at: new Date().toISOString(),
+                updated_at: new Date().toISOString(),
+                questions: []
+            };
+            await route.fulfill({ json });
+        });
+
         await createQuizPage.goto();
         await createQuizPage.fillMetadata('E2E Quiz', 'Created via Playwright');
         await createQuizPage.submit();
 
         // Verify successful navigation
         await expect(page).toHaveURL(/.*\/quizzes\/123e4567-e89b-12d3-a456-426614174000\/edit/);
-        await expect(page.getByText('Editor de Quiz (Próximamente)')).toBeVisible();
+        await expect(page.getByRole('heading', { name: 'E2E Quiz' })).toBeVisible();
     });
 });

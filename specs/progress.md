@@ -18,7 +18,9 @@ This file logs all major milestones and successful task completions.
 - **2026-01-30**: [QQ-TEACHER-003] Implemented Multiple Choice Question support (DB, BE, FE). Added `MCQuestionEditor` with dynamic options and Zod validation. Updated ArchitecturalModel.md with Frontend Components.
 - **Ticket/Milestone**: Implemented frontend question queries and TFQuestionEditor component.
 - **Artifacts**: frontend/src/features/quiz-management/api/questionQueries.ts, frontend/src/features/quiz-management/components/TFQuestionEditor.tsx, frontend/src/features/quiz-management/types.ts
-- **Ticket/Milestone**: Completed QQ-TEACHER-002-FE-T03. Added question management to ArchitecturalModel.md.
+- **2026-01-31**: [QQ-TEACHER-004-BE-T01] Completed Backend Question Reordering.
+- **2026-01-31**: [QQ-TEACHER-004-FE-T02] Completed Frontend Reordering Interactions.
+- **Artifacts**: `frontend/src/features/quiz-management/api/questionQueries.ts`, `frontend/src/features/quiz-management/components/QuestionList.tsx`, `frontend/src/features/quiz-management/pages/QuizEditorPage.tsx`, `frontend/tests/e2e/specs/reorder-questions.spec.ts`.
 
 ### [2026-01-30]
 - **Ticket**: QQ-TEACHER-001-DB-T01 - Quiz Persistence
