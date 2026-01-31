@@ -13,6 +13,7 @@ export interface Quiz {
     status: QuizStatus;
     created_at: string;
     updated_at: string;
+    questions?: Question[];
 }
 
 export interface CreateQuizDTO {
@@ -59,3 +60,12 @@ export interface QuestionCreate {
 }
 
 export interface QuestionResponse extends Question { }
+
+export interface QuestionReorderItem {
+    id: string;
+    sequence: number;
+}
+
+export interface QuestionReorderRequest {
+    items: QuestionReorderItem[];
+}

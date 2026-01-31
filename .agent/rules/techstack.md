@@ -24,7 +24,7 @@ The repository is structured as:
 Any change to this structure MUST be reflected here in the same PR.
 
 ## Spec-Driven Development (SDD) Anti-Drift Rules
-- **Specs drive code.** If implementation deviates, either:
+- **Specs drive code.** If implementation deviates, ask the developer whether you must:
   1) update the spec to match the new decision, or  
   2) revert the implementation to match the spec.  
   Leaving them inconsistent is not allowed.
@@ -45,6 +45,14 @@ Any change to this structure MUST be reflected here in the same PR.
 - Configuration MUST come from environment variables (no hardcoded endpoints/keys).
 - Frontend env vars MUST use `VITE_` prefix.
 - Secrets MUST NOT be committed to the repository.
+
+## Containerized Environment
+- **Local Infrastructure**: `docker-compose.yml` is the single source of truth for the local development environment.
+- **Port Mapping** (unless they are already in use):
+    - Backend: `8005:8000` (Container 8000 mapped to host 8005)
+    - Frontend: `5188:5188` (Vite default or custom)
+    - Database: `5455:5432` (PostgreSQL)
+- **Networking**: Frontend MUST communicate with the backend using the host mapping or internal Docker DNS as per configuration.
 
 ## CI / Quality Gates (Shared Expectations)
 CI MUST fail on:

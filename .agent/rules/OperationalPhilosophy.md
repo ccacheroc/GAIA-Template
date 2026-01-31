@@ -54,18 +54,23 @@ This document defines the **immutable principles** that govern every code change
 
 ## 7. No Silent Decisions
 - **Rule**: Avoid "Coding by Intuition". 
-- **Constraint**: If there is a conflict between specs, rules, and existing code, you MUST:
+- **Constraint**: If there is a conflict between specs, rules, skills, workflows and/or existing code, you MUST:
   1. Flag the inconsistency.
   2. Ask the user for the "Single Source of Truth".
   3. Document the decision.
 
 ## 8. Discovery Mandate (Look Before You Leap)
-- **Rule**: Before starting any task, you MUST perform a short technical discovery to identify reusable assets (UI components, domain logic, DB tables).
+- **Rule**: Before starting any coding task, you MUST perform a short technical discovery to identify reusable assets (UI components, domain logic, DB tables).
 - **Goal**: Zero duplication. Do not recreate what already exists in the codebase.
 
 ## 9. Security by Default (ASVS Compliance)
 - **Rule**: Every code change is an opportunity to strengthen security.
 - **Mandate**: If a change involves data access, authentication, or authorization, you MUST verify it against @/security-backend.md or @/security-frontend.md.
+
+## 10. Mandatory Containerized Development
+- **Rule**: All local development, integration testing, and verification MUST be performed within a containerized environment (Docker).
+- **Requirement**: The `frontend`, `backend`, and `database` services MUST be managed via `docker-compose`.
+- **Constraint**: Running services directly on the host machine (e.g., `npm run dev`, `uvicorn`, `python main.py` outside of Docker) is strictly PROHIBITED for development and verification tasks. This ensures environmental parity and zero "it works on my machine" issues.
 
 ---
 
@@ -77,3 +82,4 @@ This document defines the **immutable principles** that govern every code change
 - [ ] **Journaling**: Have I prepared the entry for `progress.md`?
 - [ ] **Discovery**: Did I reuse existing components/logic instead of duplicating them?
 - [ ] **Security**: Did I ensure no BOLA or XSS vulnerabilities were introduced?
+- [ ] **Containerization**: Did I run and verify the changes inside the Docker environment?

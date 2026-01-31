@@ -101,4 +101,27 @@ This feature enables teachers to design, edit, and organize quizzes. It provides
 - **Ownership Validation**: Every update/delete request must verify that the requesting user is the owner of the quiz (BOLA prevention).
 - **Data Integrity**: A question of type 'Multiple Choice' must have between 2 and 6 options. 'True/False' must have exactly 2.
 - **Validation**: Every question must have at least one correct answer marked before the quiz can be "Published".
+- **Validation**: Every question must have at least one correct answer marked before the quiz can be "Published".
 - **Performance**: Quiz saving should be asynchronous and non-blocking for the UI.
+
+### User Authentication & Access Control
+Provides the identity layer for the platform, ensuring teachers can securely manage their pedagogy while keeping student participation anonymous and friction-free.
+
+#### 2. Core Entities / Roles / Actors
+##### 2.1 Actors
+- **Teacher (`TEACHER`)**: Authenticated user who can perform CRUD operations on their own quizzes and manage their profile.
+- **Student (`STUDENT`)**: Public user who joins sessions via PIN and pseudonym. No authentication required.
+- **Admin (`ADMIN`)**: Authenticated user with system-wide oversight and moderation capabilities.
+
+#### 3. High-Level Rules and Permissions
+##### 3.1 Access Levels
+- **Public**: Can join and play quizzes via PIN. No access to the management dashboard.
+- **Teacher+**: Can access the teacher dashboard, create quizzes, and manage their own content.
+- **Admin**: Can manage all system content and user accounts.
+
+#### 4. Requirements and Constraints
+##### 4.1 Security / Compliance / Quality Requirements
+- **Secure Authentication**: Authentication MUST be enforced for all `/api/v1/quizzes` (write) endpoints.
+- **Password Safety**: Passwords MUST be hashed via Argon2id. Never store plain text.
+- **Stateless Sessions**: Authentication MUST use JWT tokens with secure expiration policies.
+- **Ownership (BOLA)**: The system MUST prevent a teacher from editing or deleting quizzes belonging to another teacher.

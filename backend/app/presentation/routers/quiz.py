@@ -97,3 +97,15 @@ async def reorder_questions(
 ):
     reorder_items = [(item.id, item.sequence) for item in dto.items]
     await use_case.execute(current_user_id, quiz_id, reorder_items)
+
+# [Feature: Quiz Management] [Story: QQ-TEACHER-005] [Ticket: QQ-TEACHER-005-BE-T01]
+from app.application.use_cases.quiz.publish_quiz import PublishQuiz
+
+@router.post("/{quiz_id}/publish", response_model=QuizResponse)
+async def publish_quiz(
+    quiz_id: UUID,
+    current_user_id: UUID = Depends(get_current_user),
+    repo: QuizRepository = Depends(get_quiz_repository)
+):
+    use_case = PublishQuiz(repo)
+    return await use_case.execute(quiz_id, current_user_id)

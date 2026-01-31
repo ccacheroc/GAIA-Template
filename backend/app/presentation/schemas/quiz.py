@@ -1,9 +1,10 @@
 
 from pydantic import BaseModel, ConfigDict, Field
-from typing import Optional
+from typing import Optional, List
 from uuid import UUID
 from datetime import datetime
 from enum import Enum
+from app.presentation.schemas.question import QuestionResponse
 
 # [Feature: Quiz Management] [Story: QQ-TEACHER-001] [Ticket: QQ-TEACHER-001-BE-T02]
 
@@ -28,5 +29,6 @@ class QuizResponse(QuizBase):
     status: QuizStatus
     created_at: datetime
     updated_at: datetime
+    questions: List[QuestionResponse] = []
     
     model_config = ConfigDict(from_attributes=True)

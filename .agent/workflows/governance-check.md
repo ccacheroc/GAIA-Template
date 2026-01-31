@@ -26,6 +26,7 @@ description: Validates whether content belongs in a **Rule**, **Workflow**, or *
 4. **Quality gates**
    - Concision, modularity, no duplication (use `@mentions`)
    - Ambiguity handling: ask questions before proceeding
+   - **Frontend Integrity**: Ensure `brand-guidelines.md` and connectivity requirements are respected for any UI changes.
    - Verification included
    - File size within limits
 

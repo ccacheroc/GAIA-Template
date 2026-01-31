@@ -30,5 +30,19 @@ services:
     ports:
       - "8005:8000"
 
+  frontend:
+    build:
+      context: ./frontend
+    container_name: gaia-pruebacris-frontend
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    ports:
+      - "5188:5188"
+    environment:
+      - VITE_API_BASE_URL=http://localhost:8005/api/v1
+    depends_on:
+      - backend
+
 volumes:
   postgres_data:

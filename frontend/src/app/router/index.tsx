@@ -1,12 +1,19 @@
-import { createBrowserRouter, Navigate } from 'react-router-dom';
+import { createBrowserRouter } from 'react-router-dom';
 import CreateQuizPage from '@/features/quiz-management/pages/CreateQuizPage';
 import QuizEditorPage from '@/features/quiz-management/pages/QuizEditorPage';
-import { Toaster } from '@/components/ui/sonner';
+import QuizListPage from '@/features/quiz-management/pages/QuizListPage';
+import { Toaster } from 'sonner';
 
+// [Feature: Quiz Management] [Story: QQ-TECH-001] [Ticket: QQ-TECH-001-FE-T03]
 export const router = createBrowserRouter([
     {
         path: '/',
-        element: <Navigate to="/quizzes/create" replace />,
+        element: (
+            <>
+                <QuizListPage />
+                <Toaster position="top-right" richColors />
+            </>
+        ),
     },
     {
         path: '/quizzes/create',

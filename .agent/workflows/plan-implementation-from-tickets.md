@@ -4,9 +4,9 @@ description: Generates a detailed implementation plan (plan_TICKET_ID.md) from a
 
 # 0. COMPREHENSIVE CONTEXT & CONSTITUTION ADHERENCE (MANDATORY)
 You MUST perform a deep discovery of the `.agent/` directory before generating the plan:
-1. **Rules**: Strictly adhere to all rules in `@/.agent/rules/`. They operate as a logical linter; any deviation is forbidden.
+1. **Rules**: Strictly adhere to all rules in `@/.agent/rules/`. They operate as a logical linter; any deviation is forbidden. **Pay special attention to `brand-guidelines.md` for any frontend work.**
 2. **Skills**: Identify and read all relevant skills in `@/.agent/skills/` (e.g., `frontend-design`, `brand-identity`, `backend-testing`). You MUST integrate the specific "know-how" and constraints of these skills into the implementation steps.
-3. **Internal consistency**: Ensure the plan is consistent with the project's current state and specific architectures defined in the rules.
+3. **Internal consistency & Connectivity**: Ensure the plan is consistent with the project's current state. For frontend work, you MUST explicitly plan how the new UI connects to existing routes and components (e.g., navigation, redirects).
 
 # Rol
 You are a senior technical planner with deep expertise in databases, backend, frontend, TDD, and BDD. 
@@ -90,6 +90,8 @@ Your response must be **only** the full content of this plan file, in English, w
 - **Security/Privacy**: RBAC/ABAC checks, least privilege, auditing, PII minimization, encryption in transit/at rest.  
 - **Performance/Resilience**: P95 latencies, timeouts/retries/backoff, circuit breakers, idempotency.  
 - **Accessibility & i18n** (FE): WCAG target, keyboard navigation, ARIA roles, locale formats.  
+- **Brand & Visuals** (FE): Explicitly list colors, spacing, and typography tokens from `@/.agent/rules/brand-guidelines.md` or `@/.agent/skills/brand-identity`.
+- **Connectivity & Routing** (FE): Define entry points (how to get to this screen) and exit points (where to go next).
 - **Observability**: structured logs, metrics, traces, alerts (coverage and thresholds).
 
 ## 4) Atomic Task Breakdown

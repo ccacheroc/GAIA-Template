@@ -151,12 +151,12 @@ This feature allows teachers to create and edit quizzes with different question 
    - **Dependencies**: QQ-TEACHER-004-BE-T01.
    - **Deliverables**: DnD wrapper components, sorting logic, visual indicators.
 
-3. - [ ] **QQ-TEACHER-004-OTH-T03 — Sequence Integrity Audit**
+3. - [x] (2026-01-31) **QQ-TEACHER-004-OTH-T03 — Sequence Integrity Audit**
    - **Type**: OTH
    - **Description**: Script/Task to verify and repair sequence gaps if any.
    - **Scope**: Ensure questions are always indexed from 1 to N without holes.
    - **Dependencies**: QQ-TEACHER-004-BE-T01.
-   - **Deliverables**: Maintenance script or background task check.
+   - **Deliverables**: Maintenance script `backend/scripts/audit_sequences.py` + Service.
 
 ---
 
@@ -168,7 +168,7 @@ This feature allows teachers to create and edit quizzes with different question 
 
 #### Tickets for QQ-TEACHER-005
 
-1. - [ ] **QQ-TEACHER-005-BE-T01 — Quiz Validation & Publish Service**
+1. - [x] (2026-01-31) **QQ-TEACHER-005-BE-T01 — Quiz Validation & Publish Service**
    - **Type**: BE
    - **Description**: Business logic to verify quiz completeness before changing status.
    - **Scope**: 
@@ -177,21 +177,70 @@ This feature allows teachers to create and edit quizzes with different question 
    - **Dependencies**: QQ-TEACHER-004-BE-T01.
    - **Deliverables**: Validation service, Status update Use Case, Integration tests.
 
-2. - [ ] **QQ-TEACHER-005-FE-T02 — Publish Workflow and Feedback**
+2. - [x] (2026-01-31) **QQ-TEACHER-005-FE-T01 — Publish Button & UI Feedback**
    - **Type**: FE
-   - **Description**: Publish button with confirmation and validation error display.
-   - **Scope**: 
-     - "Publish" button with visual feedback.
-     - Error summary display if backend validation fails.
-     - Guarding the UI against editing published quizzes.
+   - **Description**: Add "Publish" button to Quiz Editor header.
+   - **Scope**:
+     - Call `POST /quizzes/{id}/publish`.
+     - Disable if draft is empty.
+     - Show success toast + status update.
+     - Show error toast with validation details.
    - **Dependencies**: QQ-TEACHER-005-BE-T01.
-   - **Deliverables**: React components, validation handling UI.
+   - **Deliverables**: QuizEditorPage update, API hook, E2E test.
 
-3. - [ ] **QQ-TEACHER-005-FE-T03 — Quiz Preview Mode**
+3. - [x] (2026-01-31) **QQ-TEACHER-005-FE-T02 — Read-only Mode & Confirmation**
+   - **Type**: FE
+   - **Description**: Polishing the publishing flow with confirmation and strict locking.
+   - **Scope**: 
+     - Separate `PublishButton` component with `AlertDialog` confirmation.
+     - Disable all "Add Question", "Edit", and "Delete" actions if quiz is PUBLISHED.
+   - **Dependencies**: QQ-TEACHER-005-FE-T01.
+   - **Deliverables**: `PublishButton.tsx`, updated `QuizEditorPage.tsx` and `QuestionList.tsx`.
+
+4. - [x] (2026-01-31) **QQ-TEACHER-005-FE-T03 — Quiz Preview Mode**
    - **Type**: FE
    - **Description**: Read-only preview to see how the student will experience the quiz.
    - **Scope**: 
      - Toggle between "Editor" and "Preview".
      - Mock response flow for testing.
    - **Dependencies**: QQ-TEACHER-003-FE-T03.
-   - **Deliverables**: Preview component, state management.
+   - **Deliverables**: Preview component `QuizPreview.tsx`, state management in `QuizEditorPage.tsx`, E2E test.
+
+---
+
+### Story: QQ-TECH-001 — Brand Identity & Connectivity Polish
+**Source**: User Request
+**Goal**: Refactor the frontend to match brand guidelines and ensure seamless navigation.
+
+#### Tickets for QQ-TECH-001
+
+1. - [x] (2026-01-31) **QQ-TECH-001-FE-T01 — Global Brand Identity Implementation**
+   - **Type**: FE
+   - **Description**: Update global CSS and theme to match `brand-guidelines.md`.
+   - **Scope**: 
+     - Update `index.css` with HSL/OKLCH values from guidelines.
+     - Configure Tailwind theme for Navy, Terracotta AA, Green, and Warm White.
+     - Set Inter as primary font.
+   - **Dependencies**: None.
+   - **Deliverables**: Updated `index.css` and `tailwind.config.js` (if used) or `@theme` in CSS.
+
+2. - [x] (2026-01-31) **QQ-TECH-001-FE-T02 — UI Refactor & Spanish Translation**
+   - **Type**: FE
+   - **Description**: Update all components to use brand tokens and translate all UI to Spanish.
+   - **Scope**: 
+     - Use semantic tokens instead of fixed colors.
+     - Translate all labels, buttons, and notifications to Spanish.
+     - Apply 8pt grid consistency.
+   - **Dependencies**: QQ-TECH-001-FE-T01.
+   - **Deliverables**: Refactored React components.
+
+3. - [x] (2026-01-31) **QQ-TECH-001-FE-T03 — Quiz List & Navigation Connectivity**
+   - **Type**: FE
+   - **Description**: Implement Quiz List page and fix connectivity between screens.
+   - **Scope**: 
+     - Create `QuizListPage.tsx`.
+     - Update `router/index.tsx` to set List page as root `/`.
+     - Connect Create -> Edit flow correctly.
+     - Ensure "Back" buttons lead to the List page.
+   - **Dependencies**: QQ-TECH-001-FE-T02.
+   - **Deliverables**: `QuizListPage.tsx`, updated router and navigation links.

@@ -10,6 +10,14 @@ erDiagram
     QUIZZES ||--o{ QUESTIONS : "contains"
     QUESTIONS ||--o{ OPTIONS : "has"
 
+    USERS {
+        UUID id PK
+        VARCHAR email UK
+        VARCHAR full_name
+        VARCHAR password_hash
+        DATETIME created_at
+    }
+
     QUIZZES {
         UUID id PK
         UUID teacher_id FK

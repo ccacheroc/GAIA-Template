@@ -89,6 +89,9 @@ You MUST verify the current branch and status at the start of ANY session using 
    - Locate plan-mentioned modules
    - Identify reusable abstractions/patterns/naming
    - Find existing tests covering impacted behaviour
+4. **Brand & Connectivity Check (FE Mandatory)**:
+   - If the plan involves frontend work, you **MUST** read `@/.agent/rules/brand-guidelines.md` and `@/.agent/skills/brand-identity` skill.
+   - Verify that the plan includes tasks for connecting the new UI with existing flows (routing/navigation). If not, stop and ask for clarification.
 
 If plan/rules are ambiguous:
 - Ask the user for clarification **once** (group questions).
@@ -148,6 +151,9 @@ After all plan tasks are done:
    - No obvious security regressions (authn/authz hooks, input validation)
    - No obvious performance regressions (avoid N+1, unnecessary loops)
    - Logging/observability follows project patterns
+4. **UI/UX & Integration Check (FE Mandatory)**:
+   - Verify that the implemented UI exactly matches the colors, spacing, and typography tokens from `brand-guidelines.md`.
+   - Verify that the new UI is **reachable** from existing screens and leads to the **expected next steps** (no dead ends).
 
 ---
 

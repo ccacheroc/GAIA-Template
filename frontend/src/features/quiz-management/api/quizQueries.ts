@@ -58,3 +58,19 @@ export const useQuizzes = () => {
         },
     });
 };
+
+// [Feature: Quiz Management] [Story: QQ-TEACHER-005] [Ticket: QQ-TEACHER-005-FE-T01]
+export const usePublishQuiz = (quizId: string) => {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: async () => {
+            const response = await http.post<QuizDetail>(`/quizzes/${quizId}/publish`, {});
+            return response.data;
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['quizzes'] });
+            queryClient.invalidateQueries({ queryKey: ['quiz', quizId] });
+        },
+    });
+};

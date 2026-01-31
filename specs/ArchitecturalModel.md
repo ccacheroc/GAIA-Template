@@ -38,6 +38,7 @@ Container_Boundary(backend_boundary, "Backend API (FastAPI)") {
     Component(router, "Presentation (Routers/DTOs)", "FastAPI", "Handles HTTP requests and response serialization.")
     Component(use_cases, "Application (Use Cases)", "Domain Logic", "Orchestrates quiz & question creation.")
     Component(domain, "Domain (Entities)", "Core Models", "Defines Quiz, Question, Option rules.")
+    Component(validator, "Domain Services", "QuizValidator", "Validates publishing rules (check completeness).")
     Component(infra, "Infrastructure (Repositories)", "Adapters", "SQLAlchemy Quiz & Question storage.")
 }
 
@@ -45,6 +46,7 @@ ContainerDb(db, "Database", "PostgreSQL", "Data storage")
 
 Rel(router, use_cases, "Calls (AddQuestion, ReorderQuestions, etc.)")
 Rel(use_cases, domain, "Uses Entities")
+Rel(use_cases, validator, "Uses (Publish)")
 Rel(use_cases, infra, "Calls via Ports (QuestionRepo)")
 Rel(infra, db, "SQL", "TCP")
  

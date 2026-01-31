@@ -36,9 +36,10 @@ function Badge({ children, className = "" }: { children: ReactNode; className?: 
 
 interface SortableQuestionItemProps {
     question: QuestionResponse;
+    disabled?: boolean;
 }
 
-export function SortableQuestionItem({ question }: SortableQuestionItemProps) {
+export function SortableQuestionItem({ question, disabled }: SortableQuestionItemProps) {
     const {
         attributes,
         listeners,
@@ -46,7 +47,10 @@ export function SortableQuestionItem({ question }: SortableQuestionItemProps) {
         transform,
         transition,
         isDragging,
-    } = useSortable({ id: question.id });
+    } = useSortable({
+        id: question.id,
+        disabled: disabled
+    });
 
     const style = {
         transform: CSS.Transform.toString(transform),
@@ -56,18 +60,20 @@ export function SortableQuestionItem({ question }: SortableQuestionItemProps) {
     };
 
     return (
-        <div ref={setNodeRef} style={style} className="mb-4 touch-none">
+        <div ref={setNodeRef} style={style} className={`mb-4 ${!disabled ? 'touch-none' : ''}`}>
             <Card className={isDragging ? 'shadow-xl ring-2 ring-primary/20' : ''}>
                 <CardContent className="p-4 flex items-center gap-4">
-                    {/* Handle */}
-                    <div
-                        {...attributes}
-                        {...listeners}
-                        className="cursor-move p-2 hover:bg-muted/50 rounded-md transition-colors"
-                        aria-label="Drag handle"
-                    >
-                        <GripVertical className="h-5 w-5 text-muted-foreground" />
-                    </div>
+                    {/* Handle - only show if not disabled */}
+                    {!disabled && (
+                        <div
+                            {...attributes}
+                            {...listeners}
+                            className="cursor-move p-2 hover:bg-muted/50 rounded-md transition-colors"
+                            aria-label="Drag handle"
+                        >
+                            <GripVertical className="h-5 w-5 text-muted-foreground" />
+                        </div>
+                    )}
 
                     {/* Content */}
                     <div className="flex-1 space-y-1">
@@ -87,9 +93,10 @@ export function SortableQuestionItem({ question }: SortableQuestionItemProps) {
 
 interface QuestionListProps {
     quizId: string;
+    disabled?: boolean;
 }
 
-export function QuestionList({ quizId }: QuestionListProps) {
+export function QuestionList({ quizId, disabled }: QuestionListProps) {
     const { data: quiz, isLoading } = useQuiz(quizId);
     const { mutate: reorderQuestions } = useReorderQuestions(quizId);
 
@@ -113,6 +120,7 @@ export function QuestionList({ quizId }: QuestionListProps) {
     );
 
     const handleDragEnd = (event: DragEndEvent) => {
+        if (disabled) return;
         const { active, over } = event;
 
         if (over && active.id !== over.id) {
@@ -171,7 +179,11 @@ export function QuestionList({ quizId }: QuestionListProps) {
             >
                 <div>
                     {items.map((question) => (
-                        <SortableQuestionItem key={question.id} question={question} />
+                        <SortableQuestionItem
+                            key={question.id}
+                            question={question}
+                            disabled={disabled}
+                        />
                     ))}
                 </div>
             </SortableContext>

@@ -14,26 +14,63 @@ class SQLAlchemyQuizRepository:
         self.session = session
 
     async def create(self, quiz: Quiz) -> Quiz:
+        from sqlalchemy.orm import selectinload
+        from app.infrastructure.models.quiz import Question
+
         self.session.add(quiz)
         await self.session.flush()
         await self.session.refresh(quiz)
-        return quiz
+        
+        # Load relationships for serialization
+        result = await self.session.execute(
+            select(Quiz)
+            .where(Quiz.id == quiz.id)
+            .options(
+                selectinload(Quiz.questions).selectinload(Question.options)
+            )
+        )
+        return result.scalars().first()
 
     async def get_by_id(self, quiz_id: UUID) -> Optional[Quiz]:
+        from sqlalchemy.orm import selectinload
+        from app.infrastructure.models.quiz import Question
+
         result = await self.session.execute(
-            select(Quiz).where(Quiz.id == quiz_id)
+            select(Quiz)
+            .where(Quiz.id == quiz_id)
+            .options(
+                selectinload(Quiz.questions).selectinload(Question.options)
+            )
         )
         return result.scalars().first()
 
     async def update(self, quiz: Quiz) -> Quiz:
-        # Assumes quiz object is attached to session. 
-        # If passed from use case, it might need merging or assumes it came from get_by_id within same UoW.
+        from sqlalchemy.orm import selectinload
+        from app.infrastructure.models.quiz import Question
+
+        # Flush changes to DB
         await self.session.flush()
-        await self.session.refresh(quiz)
-        return quiz
+        
+        # Reload fully to ensure response schemas can access relationships
+        result = await self.session.execute(
+            select(Quiz)
+            .where(Quiz.id == quiz.id)
+            .options(
+                selectinload(Quiz.questions).selectinload(Question.options)
+            )
+        )
+        return result.scalars().first()
 
     async def list_by_teacher(self, teacher_id: UUID) -> list[Quiz]:
+        from sqlalchemy.orm import selectinload
+        from app.infrastructure.models.quiz import Question
+
         result = await self.session.execute(
-            select(Quiz).where(Quiz.teacher_id == teacher_id).order_by(Quiz.created_at.desc())
+            select(Quiz)
+            .where(Quiz.teacher_id == teacher_id)
+            .options(
+                selectinload(Quiz.questions).selectinload(Question.options)
+            )
+            .order_by(Quiz.created_at.desc())
         )
         return list(result.scalars().all())
