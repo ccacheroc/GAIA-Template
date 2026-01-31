@@ -120,3 +120,8 @@ This file logs all major milestones and successful task completions.
 - **Outcome**: Implemented POST /api/v1/auth/register with Argon2id password hashing and unique email validation.
 - **Artifacts**: backend/app/application/use_cases/auth/register_teacher.py, backend/app/presentation/routers/auth.py, backend/app/domain/services/security.py.
 - **Verification**: Integration tests backend/tests/integration/test_auth_api.py **PASSED** (Happy Path + Duplicate Email).
+
+- **Ticket**: AUTH-TEACHER-001-FE-T03 - Signup Page Implementation
+- **Outcome**: Implemented responsive Signup UI with brand colors (Navy/Terracotta), Zod validation (password confirmation), and integration with Registration API.
+- **Artifacts**: `frontend/src/features/auth/pages/RegisterPage.tsx`, `frontend/src/features/auth/schemas/authSchema.ts`.
+- **Verification**: Playwright E2E tests `frontend/tests/e2e/specs/register.spec.ts` **PASSED** (Happy Path + Validation). Duplicate email check failing on toast visibility (pending investigation).
