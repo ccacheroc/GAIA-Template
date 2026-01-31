@@ -114,3 +114,9 @@ This file logs all major milestones and successful task completions.
 - **Outcome**: Extended User model with password_hash and created_at. Generated and applied Alembic migration.
 - **Artifacts**: backend/app/infrastructure/models/user.py, backend/alembic/versions/*_extend_user_model_for_auth.py.
 - **Verification**: Integration test backend/tests/integration/test_user_persistence.py **PASSED** inside Docker.
+
+### [2026-01-31]
+- **Ticket**: AUTH-TEACHER-001-BE-T02 - Teacher Signup API
+- **Outcome**: Implemented POST /api/v1/auth/register with Argon2id password hashing and unique email validation.
+- **Artifacts**: backend/app/application/use_cases/auth/register_teacher.py, backend/app/presentation/routers/auth.py, backend/app/domain/services/security.py.
+- **Verification**: Integration tests backend/tests/integration/test_auth_api.py **PASSED** (Happy Path + Duplicate Email).

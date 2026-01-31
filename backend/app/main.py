@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from app.presentation.routers import quiz
+from app.presentation.routers import quiz, auth
 from app.infrastructure.models import user, quiz as quiz_model # Register models
 
 # [Feature: Quiz Management] [Story: QQ-TEACHER-001] [Ticket: QQ-BUG-001]
@@ -22,3 +22,4 @@ app.add_middleware(
 )
 
 app.include_router(quiz.router, prefix="/api/v1")
+app.include_router(auth.router, prefix="/api/v1")

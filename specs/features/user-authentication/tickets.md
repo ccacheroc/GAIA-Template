@@ -18,7 +18,7 @@ This feature implements the identity layer for teachers. It provides registratio
    - **Dependencies**: None.
    - **Deliverables**: Alembic migration script.
 
-2. - [ ] **AUTH-TEACHER-001-BE-T02 — Teacher Signup API**
+2. - [x] (2026-01-31) **AUTH-TEACHER-001-BE-T02 — Teacher Signup API**
    - **Type**: BE
    - **Description**: Implement the business logic for creating new teacher accounts.
    - **Scope**: POST `/auth/register` endpoint, Argon2id password hashing, email uniqueness validation.
