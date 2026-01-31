@@ -158,3 +158,13 @@ This file logs all major milestones and successful task completions.
 - **Outcome**: Created an idempotent seeding script that populates the DB with two test teachers (`profe.test1@gaia.edu`, `profe.test2@gaia.edu`) and their respective quizzes.
 - **Artifacts**: `backend/scripts/seed_auth.py`, `backend/scripts/run_all_seeds.py`.
 - **Verification**: Integration test `test_seed.py` **PASSED**. Manual execution via Docker successful.
+
+### [2026-02-01]
+- **Milestone**: Feature Closed: User Authentication & Teacher Access Control
+- **Summary**: Formally closed the identity and access control layer. All tickets completed, quality gates passed (22 backend integration tests, 9 E2E tests). Feature provides secure registration, login, and BOLA protection for all quiz assets.
+- **Artifacts**: `specs/features/user-authentication/*`
+
+- **Ticket**: QQ-BUG-003 - Fix missing Edit access (JWT sub/id mismatch)
+- **Outcome**: Mapped JWT `sub` claim to user `id` in `AuthContext` to ensure frontend ownership checks (`quiz.owner_id === user.id`) work correctly.
+- **Artifacts**: `frontend/src/features/auth/context/AuthContext.tsx`, `specs/features/quiz-management/plan_QQ-BUG-003.md`.
+- **Verification**: Ownership check now correctly identifies the logged-in teacher as the editor of their own quizzes.
