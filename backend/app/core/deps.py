@@ -8,11 +8,28 @@ from app.infrastructure.repositories.question_repository import SQLAlchemyQuesti
 
 # [Feature: Quiz Management] [Story: QQ-TEACHER-001] [Ticket: QQ-TEACHER-001-BE-T02]
 
-# Placeholder for Auth - In real app this comes from JWT
-SIMPLE_TEACHER_ID = UUID('ab84ab20-bd4c-4e62-944b-3c5bf8304dd1')
+from fastapi import Depends, HTTPException, status
+from fastapi.security import OAuth2PasswordBearer
+from app.domain.services.security import decode_access_token
 
-async def get_current_user() -> UUID:
-    return SIMPLE_TEACHER_ID
+# [Feature: User Authentication] [Story: AUTH-TEACHER-003] [Ticket: AUTH-TEACHER-003-BE-T02]
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="api/v1/auth/login")
+
+async def get_current_user(token: str = Depends(oauth2_scheme)) -> UUID:
+    payload = decode_access_token(token)
+    if not payload:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Could not validate credentials",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    user_id = payload.get("sub")
+    if not user_id:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Token missing user information",
+        )
+    return UUID(user_id)
 
 async def get_quiz_repository(session: AsyncSession = Depends(get_db)) -> SQLAlchemyQuizRepository:
     return SQLAlchemyQuizRepository(session)

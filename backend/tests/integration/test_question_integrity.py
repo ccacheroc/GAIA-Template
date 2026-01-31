@@ -2,7 +2,7 @@
 import pytest
 from sqlalchemy import select
 from app.infrastructure.models.quiz import Quiz, Question, Option, QuestionType
-from app.core.deps import SIMPLE_TEACHER_ID
+from tests.conftest import AUTH_TEACHER_ID
 
 # [Feature: Quiz Management] [Story: QQ-TEACHER-003] [Ticket: QQ-TEACHER-003-DB-T01]
 
@@ -12,7 +12,7 @@ async def test_db_allows_multiple_correct_answers_currently(db_session):
     PROVE THE BAD STATE: Currently the DB allows multiple correct answers per question.
     We want to prevent this in T01.
     """
-    quiz = Quiz(title="Integrity Test", owner_id=SIMPLE_TEACHER_ID)
+    quiz = Quiz(title="Integrity Test", owner_id=AUTH_TEACHER_ID)
     db_session.add(quiz)
     await db_session.commit()
     await db_session.refresh(quiz)

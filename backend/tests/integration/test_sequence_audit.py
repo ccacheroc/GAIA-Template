@@ -4,12 +4,13 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.infrastructure.models.user import User
 from app.infrastructure.models.quiz import Quiz, Question, QuestionType
 from scripts.audit_sequences import audit_quizzes_logic
-from app.core.deps import SIMPLE_TEACHER_ID
+from tests.conftest import AUTH_TEACHER_ID
 
 @pytest.mark.asyncio
 async def test_audit_detects_and_fixes_gaps(db_session: AsyncSession):
     # Setup
-    user_id = SIMPLE_TEACHER_ID
+    user_id = AUTH_TEACHER_ID
+
     
     # Ensure user exists (idempotent check)
     user = await db_session.get(User, user_id)

@@ -2,7 +2,7 @@
 import pytest
 import uuid
 from app.infrastructure.models.quiz import QuestionType, Quiz
-from app.core.deps import SIMPLE_TEACHER_ID
+from tests.conftest import AUTH_TEACHER_ID
 
 # [Feature: Quiz Management] [Story: QQ-TEACHER-002] [Ticket: QQ-TEACHER-002-BE-T02]
 
@@ -11,8 +11,9 @@ async def test_add_tf_question_to_quiz(client, db_session):
     # 1. Create a quiz first
     quiz = Quiz(
         title="API Test Quiz",
-        owner_id=SIMPLE_TEACHER_ID
+        owner_id=AUTH_TEACHER_ID
     )
+
     db_session.add(quiz)
     await db_session.commit()
     await db_session.refresh(quiz)
@@ -54,7 +55,7 @@ async def test_add_question_bola_check(client, db_session):
     await db_session.commit()
     await db_session.refresh(quiz)
 
-    # 3. Attempt to add a question (using SIMPLE_TEACHER_ID by default in client)
+    # 3. Attempt to add a question (using AUTH_TEACHER_ID by default in client)
     payload = {
         "type": "TF",
         "content": "Malicious attempt?",

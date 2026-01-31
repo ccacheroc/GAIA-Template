@@ -29,3 +29,12 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -
     encoded_jwt = jwt.encode(to_encode, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
     return encoded_jwt
 
+def decode_access_token(token: str) -> Optional[dict]:
+    """Decode and verify a JWT access token."""
+    try:
+        decoded_token = jwt.decode(token, settings.SECRET_KEY, algorithms=[settings.ALGORITHM])
+        return decoded_token if decoded_token["exp"] >= datetime.now(timezone.utc).timestamp() else None
+    except jwt.PyJWTError:
+        return None
+
+

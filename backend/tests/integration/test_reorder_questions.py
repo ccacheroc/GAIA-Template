@@ -2,14 +2,15 @@ import pytest
 import uuid
 from sqlalchemy import select
 from app.infrastructure.models.quiz import Quiz, Question, QuestionType
-from app.core.deps import SIMPLE_TEACHER_ID
+from tests.conftest import AUTH_TEACHER_ID
 
 # [Feature: Quiz Management] [Story: QQ-TEACHER-004] [Ticket: QQ-TEACHER-004-BE-T01]
 
 @pytest.mark.asyncio
 async def test_reorder_questions_happy_path(client, db_session):
     # 1. Setup: Create Quiz and 3 Questions
-    quiz = Quiz(title="Reorder Test Quiz", owner_id=SIMPLE_TEACHER_ID)
+    quiz = Quiz(title="Reorder Test Quiz", owner_id=AUTH_TEACHER_ID)
+
     db_session.add(quiz)
     await db_session.commit()
     await db_session.refresh(quiz)
@@ -55,8 +56,8 @@ async def test_reorder_questions_happy_path(client, db_session):
 @pytest.mark.asyncio
 async def test_reorder_questions_cross_quiz_validation(client, db_session):
     # 1. Setup: Create two quizzes
-    quiz1 = Quiz(title=f"My Quiz {uuid.uuid4()}", owner_id=SIMPLE_TEACHER_ID)
-    quiz2 = Quiz(title=f"Other Quiz {uuid.uuid4()}", owner_id=SIMPLE_TEACHER_ID)
+    quiz1 = Quiz(title=f"My Quiz {uuid.uuid4()}", owner_id=AUTH_TEACHER_ID)
+    quiz2 = Quiz(title=f"Other Quiz {uuid.uuid4()}", owner_id=AUTH_TEACHER_ID)
     db_session.add_all([quiz1, quiz2])
     await db_session.commit()
     # Refresh to get IDs
@@ -97,7 +98,7 @@ async def test_reorder_questions_bola(client, db_session):
     await db_session.commit()
     await db_session.refresh(quiz)
 
-    # 2. Action: Authenticated as SIMPLE_TEACHER_ID (default), try to modify other's quiz
+    # 2. Action: Authenticated as AUTH_TEACHER_ID (default), try to modify other's quiz
     payload = {"items": []}
     response = await client.patch(f"/api/v1/quizzes/{quiz.id}/reorder", json=payload)
 
