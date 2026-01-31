@@ -13,8 +13,11 @@ export default defineConfig({
     test: {
         globals: true,
         environment: 'jsdom',
+        exclude: ['**/tests/e2e/**', 'node_modules/**', 'dist/**', '.{idea,git,cache,output,temp}/**'],
         setupFiles: './src/test/setup.ts',
         coverage: {
+
+
             provider: 'v8',
             exclude: ['src/test/**', 'postcss.config.js', 'tailwind.config.js'],
             thresholds: {

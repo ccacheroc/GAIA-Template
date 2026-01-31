@@ -9,14 +9,15 @@ describe('QuizHeaderForm', () => {
         const saveButton = screen.getByRole('button', { name: /Guardar y Continuar/i });
         fireEvent.click(saveButton);
 
-        expect(await screen.findByText(/Title is mandatory/i)).toBeInTheDocument();
+        expect(await screen.findByText(/El título es obligatorio/i)).toBeInTheDocument();
     });
 
     it('should call onSubmit with form data when valid', async () => {
         const mockSubmit = vi.fn().mockResolvedValue(undefined);
         render(<QuizHeaderForm onSubmit={mockSubmit} />);
 
-        const titleInput = screen.getByLabelText(/Título del Quiz/i);
+        const titleInput = screen.getByLabelText(/Título/i);
+
         fireEvent.change(titleInput, { target: { value: 'My New Quiz' } });
 
         const saveButton = screen.getByRole('button', { name: /Guardar y Continuar/i });

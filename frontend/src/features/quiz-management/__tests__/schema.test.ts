@@ -6,7 +6,7 @@ describe('Quiz Schema Validation', () => {
         const result = quizSchema.safeParse({ title: '' });
         expect(result.success).toBe(false);
         if (!result.success) {
-            expect(result.error.issues[0].message).toBe('Title is mandatory');
+            expect(result.error.issues[0].message).toBe('El título es obligatorio');
         }
     });
 
