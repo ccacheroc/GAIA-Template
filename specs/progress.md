@@ -149,14 +149,12 @@ This file logs all major milestones and successful task completions.
     - Integration tests `backend/tests/integration/*.py` **PASSED** (22/22).
     - E2E tests `frontend/tests/e2e/specs/create-quiz.spec.ts` **PASSED** (mocking updated).
 
+- **Ticket**: AUTH-TEACHER-003-BE-T02 / AUTH-TEACHER-003-FE-T03
 - **Outcome**: Implemented full Resource Ownership (BOLA) protection. Backend now validates JWT tokens in `get_current_user` and enforces ownership checks in `GetQuiz`, `UpdateQuiz`, and `DeleteQuiz` use cases. Frontend implemented `ProtectedRoute` wrapper and automatic 401 logout in API interceptors. 
-- **Artifacts**: 
-    - `backend/app/core/deps.py`
-    - `backend/app/application/use_cases/quiz/*.py`
-    - `backend/app/presentation/routers/quiz.py`
-    - `frontend/src/features/auth/components/ProtectedRoute.tsx`
-    - `frontend/src/api/http.ts`
-- **Verification**: 
-    - 22 Backend integration tests **PASSED** (including BOLA checks).
-    - Frontend E2E tests `protected-routes.spec.ts` **PASSED** (Automatic redirect to login).
-    - Login E2E tests **PASSED**.
+- **Artifacts**: `backend/app/core/deps.py`, `backend/app/application/use_cases/quiz/*.py`, `frontend/src/features/auth/components/ProtectedRoute.tsx`, `frontend/src/api/http.ts`.
+- **Verification**: 22 Backend integration tests **PASSED**. Frontend E2E tests `protected-routes.spec.ts` **PASSED**.
+
+- **Ticket**: AUTH-TEACHER-004-OTH-T01 - Test Environment Seeding
+- **Outcome**: Created an idempotent seeding script that populates the DB with two test teachers (`profe.test1@gaia.edu`, `profe.test2@gaia.edu`) and their respective quizzes.
+- **Artifacts**: `backend/scripts/seed_auth.py`, `backend/scripts/run_all_seeds.py`.
+- **Verification**: Integration test `test_seed.py` **PASSED**. Manual execution via Docker successful.

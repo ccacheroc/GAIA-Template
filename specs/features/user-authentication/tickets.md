@@ -92,9 +92,10 @@ This feature implements the identity layer for teachers. It provides registratio
 
 #### Tickets for AUTH-TEACHER-004
 
-1. - [ ] **AUTH-TEACHER-004-OTH-T01 — Test Environment Seeding**
+1. - [x] (2026-01-31) **AUTH-TEACHER-004-OTH-T01 — Test Environment Seeding**
    - **Type**: OTH
    - **Description**: Populate the database with test teachers and quizzes for verification.
    - **Scope**: Create `profe.test1` and `profe.test2` with predefined quizzes as per specifications.
    - **Dependencies**: AUTH-TEACHER-003-DB-T01.
    - **Deliverables**: Seed script (Python).
+
