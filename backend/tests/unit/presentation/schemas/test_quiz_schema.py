@@ -27,10 +27,10 @@ def test_quiz_create_empty_title():
 
 def test_quiz_response_serialization():
     quiz_id = uuid4()
-    teacher_id = uuid4()
+    owner_id = uuid4()
     data = {
         "id": quiz_id,
-        "teacher_id": teacher_id,
+        "owner_id": owner_id,
         "title": "History Quiz",
         "description": "WWII",
         "status": "DRAFT",
@@ -39,5 +39,5 @@ def test_quiz_response_serialization():
     }
     response = QuizResponse(**data)
     assert response.id == quiz_id
-    assert response.teacher_id == teacher_id
+    assert response.owner_id == owner_id
     assert response.status == "DRAFT"

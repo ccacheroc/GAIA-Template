@@ -11,7 +11,7 @@ async def test_add_tf_question_to_quiz(client, db_session):
     # 1. Create a quiz first
     quiz = Quiz(
         title="API Test Quiz",
-        teacher_id=SIMPLE_TEACHER_ID
+        owner_id=SIMPLE_TEACHER_ID
     )
     db_session.add(quiz)
     await db_session.commit()
@@ -40,14 +40,15 @@ async def test_add_tf_question_to_quiz(client, db_session):
 async def test_add_question_bola_check(client, db_session):
     # 1. Create another user
     from app.infrastructure.models.user import User
-    other_teacher = User(id=uuid.uuid4(), email="bola@example.com", full_name="Other")
+    new_id = uuid.uuid4()
+    other_teacher = User(id=new_id, email=f"bola_{new_id}@example.com", full_name="Other", password_hash="dummy")
     db_session.add(other_teacher)
     await db_session.commit()
 
     # 2. Create a quiz belonging to someone else
     quiz = Quiz(
         title="Other Teacher's Quiz",
-        teacher_id=other_teacher.id
+        owner_id=other_teacher.id
     )
     db_session.add(quiz)
     await db_session.commit()

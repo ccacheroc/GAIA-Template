@@ -46,9 +46,10 @@ async def get_quiz(
         raise HTTPException(status_code=404, detail="Quiz not found")
     
     # BOLA Check
-    if quiz.teacher_id != current_user_id:
+    # BOLA Check
+    if quiz.owner_id != current_user_id:
         raise HTTPException(status_code=403, detail="Not authorized to access this quiz")
-        
+
     return quiz
 
 @router.put("/{quiz_id}", response_model=QuizResponse)
@@ -64,7 +65,7 @@ async def update_quiz(
     if not existing:
         raise HTTPException(status_code=404, detail="Quiz not found")
     
-    if existing.teacher_id != current_user_id:
+    if existing.owner_id != current_user_id:
         raise HTTPException(status_code=403, detail="Not authorized to update this quiz")
 
     use_case = UpdateQuiz(repo)

@@ -13,7 +13,7 @@ async def test_publish_quiz_happy_path(client, db_session: AsyncSession):
     # The fixture seed_teacher runs autouse=True
     
     quiz_id = uuid4()
-    quiz = Quiz(id=quiz_id, teacher_id=user_id, title="Ready to Publish", status=QuizStatus.DRAFT)
+    quiz = Quiz(id=quiz_id, owner_id=user_id, title="Ready to Publish", status=QuizStatus.DRAFT)
     db_session.add(quiz)
     
     # Add a valid question with options
@@ -46,7 +46,7 @@ async def test_publish_quiz_validation_failure_no_questions(client, db_session: 
     user_id = SIMPLE_TEACHER_ID
     
     quiz_id = uuid4()
-    quiz = Quiz(id=quiz_id, teacher_id=user_id, title="Empty Quiz", status=QuizStatus.DRAFT)
+    quiz = Quiz(id=quiz_id, owner_id=user_id, title="Empty Quiz", status=QuizStatus.DRAFT)
     db_session.add(quiz)
     
     await db_session.commit()
@@ -64,7 +64,7 @@ async def test_publish_quiz_validation_failure_invalid_question(client, db_sessi
     user_id = SIMPLE_TEACHER_ID
     
     quiz_id = uuid4()
-    quiz = Quiz(id=quiz_id, teacher_id=user_id, title="Invalid Question Quiz", status=QuizStatus.DRAFT)
+    quiz = Quiz(id=quiz_id, owner_id=user_id, title="Invalid Question Quiz", status=QuizStatus.DRAFT)
     db_session.add(quiz)
     
     q_id = uuid4()

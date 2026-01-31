@@ -35,7 +35,7 @@ async def seed_teacher(db_session):
     res = await db_session.execute(select(User).where(User.id == SIMPLE_TEACHER_ID))
     user = res.scalars().first()
     if not user:
-        user = User(id=SIMPLE_TEACHER_ID, email="teacher@example.com", full_name="Test Teacher")
+        user = User(id=SIMPLE_TEACHER_ID, email="teacher@example.com", full_name="Test Teacher", password_hash="dummy")
         db_session.add(user)
         try:
             await db_session.commit()

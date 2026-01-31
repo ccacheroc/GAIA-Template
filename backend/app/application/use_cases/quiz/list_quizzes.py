@@ -8,5 +8,5 @@ class ListQuizzes:
     def __init__(self, repo: QuizRepository):
         self.repo = repo
 
-    async def execute(self, teacher_id: UUID) -> list[Quiz]:
-        return await self.repo.list_by_teacher(teacher_id)
+    async def execute(self, owner_id: UUID) -> list[Quiz]:
+        return await self.repo.list_by_owner(owner_id)

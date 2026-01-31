@@ -16,7 +16,7 @@ test.describe('Quiz Creation Flow', () => {
         await page.route('**/api/v1/quizzes', async route => {
             const json = {
                 id: '123e4567-e89b-12d3-a456-426614174000',
-                teacher_id: '123e4567-e89b-12d3-a456-426614174001',
+                owner_id: '123e4567-e89b-12d3-a456-426614174001',
                 title: 'E2E Quiz',
                 status: 'DRAFT',
                 created_at: new Date().toISOString(),
@@ -29,7 +29,7 @@ test.describe('Quiz Creation Flow', () => {
         await page.route('**/api/v1/quizzes/123e4567-e89b-12d3-a456-426614174000', async route => {
             const json = {
                 id: '123e4567-e89b-12d3-a456-426614174000',
-                teacher_id: '123e4567-e89b-12d3-a456-426614174001',
+                owner_id: '123e4567-e89b-12d3-a456-426614174001',
                 title: 'E2E Quiz',
                 description: 'Created via Playwright',
                 status: 'DRAFT',

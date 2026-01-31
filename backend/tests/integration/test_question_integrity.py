@@ -12,7 +12,7 @@ async def test_db_allows_multiple_correct_answers_currently(db_session):
     PROVE THE BAD STATE: Currently the DB allows multiple correct answers per question.
     We want to prevent this in T01.
     """
-    quiz = Quiz(title="Integrity Test", teacher_id=SIMPLE_TEACHER_ID)
+    quiz = Quiz(title="Integrity Test", owner_id=SIMPLE_TEACHER_ID)
     db_session.add(quiz)
     await db_session.commit()
     await db_session.refresh(quiz)

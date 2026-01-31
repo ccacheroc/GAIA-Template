@@ -7,7 +7,7 @@ export type QuizStatus = typeof QuizStatus[keyof typeof QuizStatus];
 
 export interface Quiz {
     id: string;
-    teacher_id: string;
+    owner_id: string;
     title: string;
     description?: string;
     status: QuizStatus;

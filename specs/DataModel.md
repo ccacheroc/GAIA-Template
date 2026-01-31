@@ -20,7 +20,7 @@ erDiagram
 
     QUIZZES {
         UUID id PK
-        UUID teacher_id FK
+        UUID owner_id FK
         VARCHAR title
         TEXT description
         ENUM status "DRAFT, PUBLISHED"

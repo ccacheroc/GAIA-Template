@@ -25,7 +25,7 @@ class QuizUpdate(BaseModel):
 
 class QuizResponse(QuizBase):
     id: UUID
-    teacher_id: UUID
+    owner_id: UUID
     status: QuizStatus
     created_at: datetime
     updated_at: datetime

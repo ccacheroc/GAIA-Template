@@ -12,10 +12,10 @@ class AddQuestion:
         self.quiz_repo = quiz_repo
         self.question_repo = question_repo
 
-    async def execute(self, teacher_id: UUID, quiz_id: UUID, data: QuestionCreate) -> Question:
+    async def execute(self, owner_id: UUID, quiz_id: UUID, data: QuestionCreate) -> Question:
         # 1. BOLA Check: Verify ownership
         quiz = await self.quiz_repo.get_by_id(quiz_id)
-        if not quiz or quiz.teacher_id != teacher_id:
+        if not quiz or quiz.owner_id != owner_id:
             raise PermissionError("Teacher does not own this quiz or quiz not found.")
 
         # 2. Get next sequence

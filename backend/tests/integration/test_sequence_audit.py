@@ -14,12 +14,12 @@ async def test_audit_detects_and_fixes_gaps(db_session: AsyncSession):
     # Ensure user exists (idempotent check)
     user = await db_session.get(User, user_id)
     if not user:
-         user = User(id=user_id, email=f"teacher_{user_id}@example.com", full_name="Teacher")
+         user = User(id=user_id, email=f"teacher_{user_id}@example.com", full_name="Teacher", password_hash="dummy")
          db_session.add(user)
          await db_session.commit()
     
     quiz_id = uuid4()
-    quiz = Quiz(id=quiz_id, teacher_id=user_id, title="Gap Quiz")
+    quiz = Quiz(id=quiz_id, owner_id=user_id, title="Gap Quiz")
     db_session.add(quiz)
     
     # Add questions with gaps: 1, 3

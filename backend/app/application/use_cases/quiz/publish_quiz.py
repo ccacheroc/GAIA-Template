@@ -8,12 +8,12 @@ class PublishQuiz:
     def __init__(self, quiz_repository: QuizRepository):
         self.quiz_repository = quiz_repository
 
-    async def execute(self, quiz_id: UUID, teacher_id: UUID) -> Quiz:
+    async def execute(self, quiz_id: UUID, owner_id: UUID) -> Quiz:
         quiz = await self.quiz_repository.get_by_id(quiz_id)
         if not quiz:
             raise HTTPException(status_code=404, detail="Quiz not found")
         
-        if quiz.teacher_id != teacher_id:
+        if quiz.owner_id != owner_id:
              raise HTTPException(status_code=403, detail="Not authorized to modify this quiz")
              
         # Validate using domain service

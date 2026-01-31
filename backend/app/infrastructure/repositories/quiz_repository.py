@@ -61,13 +61,13 @@ class SQLAlchemyQuizRepository:
         )
         return result.scalars().first()
 
-    async def list_by_teacher(self, teacher_id: UUID) -> list[Quiz]:
+    async def list_by_owner(self, owner_id: UUID) -> list[Quiz]:
         from sqlalchemy.orm import selectinload
         from app.infrastructure.models.quiz import Question
 
         result = await self.session.execute(
             select(Quiz)
-            .where(Quiz.teacher_id == teacher_id)
+            .where(Quiz.owner_id == owner_id)
             .options(
                 selectinload(Quiz.questions).selectinload(Question.options)
             )

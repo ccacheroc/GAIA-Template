@@ -8,7 +8,7 @@ test.describe('Quiz Preview Flow', () => {
         await page.route(`**/api/v1/quizzes/${quizId}`, async route => {
             const json = {
                 id: quizId,
-                teacher_id: '123e4567-e89b-12d3-a456-426614174001',
+                owner_id: '123e4567-e89b-12d3-a456-426614174001',
                 title: 'Previewable Quiz',
                 description: 'Check how it looks',
                 status: 'DRAFT',

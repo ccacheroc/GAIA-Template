@@ -10,9 +10,9 @@ class CreateQuiz:
     def __init__(self, repository: QuizRepository):
         self.repository = repository
 
-    async def execute(self, teacher_id: UUID, dto: QuizCreate) -> Quiz:
+    async def execute(self, owner_id: UUID, dto: QuizCreate) -> Quiz:
         quiz = Quiz(
-            teacher_id=teacher_id,
+            owner_id=owner_id,
             title=dto.title,
             description=dto.description,
             status=QuizStatus.DRAFT

@@ -17,17 +17,17 @@ def mock_repository():
 
 @pytest.mark.asyncio
 async def test_create_quiz_use_case(mock_repository):
-    teacher_id = uuid4()
+    owner_id = uuid4()
     dto = QuizCreate(title="New Quiz", description="Desc")
     
     # Setup mock behavior
     mock_repository.create.side_effect = lambda q: q # Return the object passed
     
     use_case = CreateQuiz(mock_repository)
-    result = await use_case.execute(teacher_id, dto)
+    result = await use_case.execute(owner_id, dto)
     
     assert result.title == "New Quiz"
-    assert result.teacher_id == teacher_id
+    assert result.owner_id == owner_id
     assert result.status == QuizStatus.DRAFT
     mock_repository.create.assert_called_once()
 

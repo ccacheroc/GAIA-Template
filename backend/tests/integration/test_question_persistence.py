@@ -13,7 +13,7 @@ async def test_question_persistence(db_session):
     """
     quiz = Quiz(
         title="Test Quiz with Questions",
-        teacher_id=SIMPLE_TEACHER_ID,
+        owner_id=SIMPLE_TEACHER_ID,
     )
     
     question = Question(

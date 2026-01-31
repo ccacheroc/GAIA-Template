@@ -11,12 +11,12 @@ class ReorderQuestionsUseCase:
         self.question_repo = question_repo
         self.quiz_repo = quiz_repo
 
-    async def execute(self, teacher_id: UUID, quiz_id: UUID, reorder_items: List[Tuple[UUID, int]]) -> None:
+    async def execute(self, owner_id: UUID, quiz_id: UUID, reorder_items: List[Tuple[UUID, int]]) -> None:
         # 1. Ownership & Existence Check
         quiz = await self.quiz_repo.get_by_id(quiz_id)
         if not quiz:
             raise HTTPException(status_code=404, detail="Quiz not found")
-        if quiz.teacher_id != teacher_id:
+        if quiz.owner_id != owner_id:
             raise HTTPException(status_code=403, detail="Not authorized to edit this quiz")
 
         # 2. Validation: Ensure all question IDs belong to the quiz

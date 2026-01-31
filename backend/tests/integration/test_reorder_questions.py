@@ -9,7 +9,7 @@ from app.core.deps import SIMPLE_TEACHER_ID
 @pytest.mark.asyncio
 async def test_reorder_questions_happy_path(client, db_session):
     # 1. Setup: Create Quiz and 3 Questions
-    quiz = Quiz(title="Reorder Test Quiz", teacher_id=SIMPLE_TEACHER_ID)
+    quiz = Quiz(title="Reorder Test Quiz", owner_id=SIMPLE_TEACHER_ID)
     db_session.add(quiz)
     await db_session.commit()
     await db_session.refresh(quiz)
@@ -55,8 +55,8 @@ async def test_reorder_questions_happy_path(client, db_session):
 @pytest.mark.asyncio
 async def test_reorder_questions_cross_quiz_validation(client, db_session):
     # 1. Setup: Create two quizzes
-    quiz1 = Quiz(title=f"My Quiz {uuid.uuid4()}", teacher_id=SIMPLE_TEACHER_ID)
-    quiz2 = Quiz(title=f"Other Quiz {uuid.uuid4()}", teacher_id=SIMPLE_TEACHER_ID)
+    quiz1 = Quiz(title=f"My Quiz {uuid.uuid4()}", owner_id=SIMPLE_TEACHER_ID)
+    quiz2 = Quiz(title=f"Other Quiz {uuid.uuid4()}", owner_id=SIMPLE_TEACHER_ID)
     db_session.add_all([quiz1, quiz2])
     await db_session.commit()
     # Refresh to get IDs
@@ -88,11 +88,11 @@ async def test_reorder_questions_bola(client, db_session):
     
     from app.infrastructure.models.user import User
     unique_email = f"other_{uuid.uuid4()}@example.com"
-    other_user = User(id=other_teacher_id, email=unique_email, full_name="Other")
+    other_user = User(id=other_teacher_id, email=unique_email, full_name="Other", password_hash="dummy")
     db_session.add(other_user)
     await db_session.commit()
     
-    quiz = Quiz(title="Other's Quiz", teacher_id=other_teacher_id)
+    quiz = Quiz(title="Other's Quiz", owner_id=other_teacher_id)
     db_session.add(quiz)
     await db_session.commit()
     await db_session.refresh(quiz)

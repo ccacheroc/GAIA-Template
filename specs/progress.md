@@ -135,3 +135,17 @@ This file logs all major milestones and successful task completions.
 - **Outcome**: Implemented Login UI with Brand tokens, AuthContext with JWT handling (decode+persist), and Http Interceptor for injecting tokens. Protected route logic implicitly tested via E2E.
 - **Artifacts**: `frontend/src/features/auth/pages/LoginPage.tsx`, `frontend/src/features/auth/context/AuthContext.tsx`, `frontend/src/api/http.ts`, `frontend/src/app/router/index.tsx`.
 - **Verification**: Playwright E2E tests `frontend/tests/e2e/specs/login.spec.ts` **PASSED** (Validation, Mock Login, Error Toast). Verified Token injection in headers via review.
+
+### [2026-02-01]
+- **Milestone**: Refactor Quiz Ownership (Renamed `teacher_id` to `owner_id`)
+- **Outcome**: Updated all backend layers (Schema, Model, Use Cases, Routers) and Tests to use `owner_id`. Preserved data via careful migration. Fixed test suite to run reliably (unique emails, path prefixes, seed data).
+- **Artifacts**: 
+    - `backend/alembic/versions/*_rename_teacher_id_to_owner_id_in_quizzes.py`
+    - `backend/app/infrastructure/models/quiz.py`
+    - `backend/app/presentation/routers/quiz.py`
+    - `backend/app/application/use_cases/*`
+    - `frontend/src/features/quiz-management/types.ts`
+- **Verification**: 
+    - Integration tests `backend/tests/integration/*.py` **PASSED** (22/22).
+    - E2E tests `frontend/tests/e2e/specs/create-quiz.spec.ts` **PASSED** (mocking updated).
+
