@@ -6,6 +6,7 @@ This feature allows teachers to create and edit quizzes with different question 
 ### Bug Tracking
 - [x] (2026-01-30) **QQ-BUG-001**: Fix quiz creation connectivity error (CORS & API Prefix).
 - [x] (2026-01-30) **QQ-BUG-002**: Fix 405 Method Not Allowed on GET /quizzes.
+- [x] (2026-01-31) **QQ-BUG-003**: Fix missing Edit access due to JWT sub/id mismatch.
 ---
 
 ### Story: QQ-TEACHER-001 — Create Quiz Basic Metadata

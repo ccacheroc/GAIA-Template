@@ -5,10 +5,16 @@ import type { LoginInput } from '../schemas/authSchema';
 
 // [Feature: User Authentication] [Story: AUTH-TEACHER-002] [Ticket: AUTH-TEACHER-002-FE-T02]
 
+// [Feature: User Authentication] [Story: AUTH-TEACHER-002] [Ticket: QQ-BUG-003]
+interface JWTPayload {
+    sub: string;
+    email: string;
+    exp: number;
+}
+
 interface User {
     id: string;
     email: string;
-    exp: number;
 }
 
 interface AuthContextType {
@@ -30,12 +36,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             const token = localStorage.getItem('token');
             if (token) {
                 try {
-                    const decoded = jwtDecode<User>(token);
+                    const decoded = jwtDecode<JWTPayload>(token);
                     // Check expiration
                     if (decoded.exp * 1000 < Date.now()) {
                         logout();
                     } else {
-                        setUser(decoded);
+                        setUser({
+                            id: decoded.sub,
+                            email: decoded.email
+                        });
                     }
                 } catch (error) {
                     logout();
@@ -52,9 +61,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         const response = await authApi.login(data);
         const { access_token } = response;
         localStorage.setItem('token', access_token);
-        const decoded = jwtDecode<User>(access_token);
-        setUser(decoded);
+        const decoded = jwtDecode<JWTPayload>(access_token);
+        setUser({
+            id: decoded.sub,
+            email: decoded.email
+        });
     };
+
 
     const logout = () => {
         localStorage.removeItem('token');
