@@ -130,3 +130,8 @@ This file logs all major milestones and successful task completions.
 - **Outcome**: Implemented Login flow with JWT generation (pyjwt+argon2). Created Config (pydantic-settings), Token schemas, and LoginTeacher Use Case.
 - **Artifacts**: `backend/app/application/use_cases/auth/login_teacher.py`, `backend/app/domain/services/security.py`, `backend/app/presentation/routers/auth.py`, `backend/app/core/config.py`.
 - **Verification**: Integration tests `backend/tests/integration/test_auth_api.py` **PASSED** (Login Success/Failure). Updated tests to be idempotent.
+
+- **Ticket**: AUTH-TEACHER-002-FE-T02 - Login Page & Auth State
+- **Outcome**: Implemented Login UI with Brand tokens, AuthContext with JWT handling (decode+persist), and Http Interceptor for injecting tokens. Protected route logic implicitly tested via E2E.
+- **Artifacts**: `frontend/src/features/auth/pages/LoginPage.tsx`, `frontend/src/features/auth/context/AuthContext.tsx`, `frontend/src/api/http.ts`, `frontend/src/app/router/index.tsx`.
+- **Verification**: Playwright E2E tests `frontend/tests/e2e/specs/login.spec.ts` **PASSED** (Validation, Mock Login, Error Toast). Verified Token injection in headers via review.

@@ -47,7 +47,7 @@ This feature implements the identity layer for teachers. It provides registratio
    - **Dependencies**: AUTH-TEACHER-001-DB-T01.
    - **Deliverables**: Login UseCase, JWT helper, and API tests.
 
-2. - [ ] **AUTH-TEACHER-002-FE-T02 — Login Page & Auth State**
+2. - [x] (2026-01-31) **AUTH-TEACHER-002-FE-T02 — Login Page & Auth State**
    - **Type**: FE
    - **Description**: Frontend login flow and session management.
    - **Scope**: `LoginPage.tsx`, `AuthContext` for global session state, secure token storage (HttpOnly cookie simulation or memory).

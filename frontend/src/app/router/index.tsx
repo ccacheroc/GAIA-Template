@@ -4,6 +4,7 @@ import QuizEditorPage from '@/features/quiz-management/pages/QuizEditorPage';
 import QuizListPage from '@/features/quiz-management/pages/QuizListPage';
 import { Toaster } from 'sonner';
 import RegisterPage from '@/features/auth/pages/RegisterPage';
+import LoginPage from '@/features/auth/pages/LoginPage';
 
 // [Feature: Quiz Management] [Story: QQ-TECH-001] [Ticket: QQ-TECH-001-FE-T03]
 export const router = createBrowserRouter([
@@ -19,11 +20,10 @@ export const router = createBrowserRouter([
     {
         path: '/login',
         element: (
-            <div className="flex items-center justify-center min-h-screen">
-                <p>Página de Login (Work in progress)</p>
-                <Link to="/register" className="ml-2 text-blue-500">Volver a Registro</Link>
+            <>
+                <LoginPage />
                 <Toaster position="top-right" richColors />
-            </div>
+            </>
         ),
     },
     {

@@ -20,3 +20,14 @@ export const registerSchema = z.object({
 });
 
 export type RegisterInput = z.infer<typeof registerSchema>;
+
+// [Feature: User Authentication] [Story: AUTH-TEACHER-002] [Ticket: AUTH-TEACHER-002-FE-T02]
+export const loginSchema = z.object({
+    email: z.string()
+        .min(1, 'El email es obligatorio')
+        .email('Email inválido'),
+    password: z.string()
+        .min(1, 'La contraseña es obligatoria')
+});
+
+export type LoginInput = z.infer<typeof loginSchema>;
