@@ -149,3 +149,14 @@ This file logs all major milestones and successful task completions.
     - Integration tests `backend/tests/integration/*.py` **PASSED** (22/22).
     - E2E tests `frontend/tests/e2e/specs/create-quiz.spec.ts` **PASSED** (mocking updated).
 
+- **Outcome**: Implemented full Resource Ownership (BOLA) protection. Backend now validates JWT tokens in `get_current_user` and enforces ownership checks in `GetQuiz`, `UpdateQuiz`, and `DeleteQuiz` use cases. Frontend implemented `ProtectedRoute` wrapper and automatic 401 logout in API interceptors. 
+- **Artifacts**: 
+    - `backend/app/core/deps.py`
+    - `backend/app/application/use_cases/quiz/*.py`
+    - `backend/app/presentation/routers/quiz.py`
+    - `frontend/src/features/auth/components/ProtectedRoute.tsx`
+    - `frontend/src/api/http.ts`
+- **Verification**: 
+    - 22 Backend integration tests **PASSED** (including BOLA checks).
+    - Frontend E2E tests `protected-routes.spec.ts` **PASSED** (Automatic redirect to login).
+    - Login E2E tests **PASSED**.

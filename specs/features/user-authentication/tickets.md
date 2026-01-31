@@ -62,26 +62,27 @@ This feature implements the identity layer for teachers. It provides registratio
 
 #### Tickets for AUTH-TEACHER-003
 
-1. - [ ] **AUTH-TEACHER-003-DB-T01 — Quiz Ownership Migration**
+1. - [x] (2026-01-31) **AUTH-TEACHER-003-DB-T01 — Quiz Ownership Migration**
    - **Type**: DB
    - **Description**: Link quizzes to their respective creators.
    - **Scope**: Add `owner_id` (FK to `users`) to the `quizzes` table. Update existing records if any.
    - **Dependencies**: AUTH-TEACHER-001-DB-T01.
    - **Deliverables**: Alembic migration script.
 
-2. - [ ] **AUTH-TEACHER-003-BE-T02 — Auth Security Middleware & BOLA Check**
+2. - [x] (2026-01-31) **AUTH-TEACHER-003-BE-T02 — Auth Security Middleware & BOLA Check**
    - **Type**: BE
    - **Description**: Protect endpoints and enforce resource-level access control.
    - **Scope**: Backend middleware to validate JWT, ownership validator for all `/quizzes/{id}` operations.
    - **Dependencies**: AUTH-TEACHER-003-DB-T01, AUTH-TEACHER-002-BE-T01.
    - **Deliverables**: Auth middleware and Ownership decorator/service.
 
-3. - [ ] **AUTH-TEACHER-003-FE-T03 — Secure API Client & Navigation Guard**
+3. - [x] (2026-01-31) **AUTH-TEACHER-003-FE-T03 — Secure API Client & Navigation Guard**
    - **Type**: FE
    - **Description**: Ensure all frontend requests are authenticated and routes are protected.
    - **Scope**: Axios/Http interceptor for tokens, Private Route wrapper for teacher dashboard.
    - **Dependencies**: AUTH-TEACHER-002-FE-T02.
    - **Deliverables**: Updated HTTP client and Protected routes.
+
 
 ---
 

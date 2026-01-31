@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { jwtDecode } from 'jwt-decode';
 import { authApi } from '../api/authApi';
-import { LoginInput } from '../schemas/authSchema';
+import type { LoginInput } from '../schemas/authSchema';
 
 // [Feature: User Authentication] [Story: AUTH-TEACHER-002] [Ticket: AUTH-TEACHER-002-FE-T02]
 

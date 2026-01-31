@@ -3,12 +3,12 @@ from uuid import uuid4
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.infrastructure.models.user import User
 from app.infrastructure.models.quiz import Quiz, QuizStatus, Question, QuestionType, Option
-from app.core.deps import SIMPLE_TEACHER_ID
+from tests.conftest import AUTH_TEACHER_ID
 
 @pytest.mark.asyncio
 async def test_publish_quiz_happy_path(client, db_session: AsyncSession):
     # 1. Setup Data - Use existing teacher
-    user_id = SIMPLE_TEACHER_ID
+    user_id = AUTH_TEACHER_ID
     # Ensure teacher exists (handled by conftest but safe to check/merge)
     # The fixture seed_teacher runs autouse=True
     
@@ -43,7 +43,7 @@ async def test_publish_quiz_happy_path(client, db_session: AsyncSession):
 @pytest.mark.asyncio
 async def test_publish_quiz_validation_failure_no_questions(client, db_session: AsyncSession):
     # 1. Setup Data
-    user_id = SIMPLE_TEACHER_ID
+    user_id = AUTH_TEACHER_ID
     
     quiz_id = uuid4()
     quiz = Quiz(id=quiz_id, owner_id=user_id, title="Empty Quiz", status=QuizStatus.DRAFT)
@@ -61,7 +61,8 @@ async def test_publish_quiz_validation_failure_no_questions(client, db_session: 
 @pytest.mark.asyncio
 async def test_publish_quiz_validation_failure_invalid_question(client, db_session: AsyncSession):
     # 1. Setup Data
-    user_id = SIMPLE_TEACHER_ID
+    user_id = AUTH_TEACHER_ID
+
     
     quiz_id = uuid4()
     quiz = Quiz(id=quiz_id, owner_id=user_id, title="Invalid Question Quiz", status=QuizStatus.DRAFT)

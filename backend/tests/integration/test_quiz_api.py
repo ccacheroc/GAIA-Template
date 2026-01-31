@@ -25,8 +25,8 @@ async def test_create_quiz_validation_error(client):
 @pytest.mark.asyncio
 async def test_get_quiz_success(client, db_session):
     # Seed
-    from app.core.deps import SIMPLE_TEACHER_ID
-    quiz = Quiz(owner_id=SIMPLE_TEACHER_ID, title="Seed Quiz", status=QuizStatus.DRAFT)
+    from tests.conftest import AUTH_TEACHER_ID
+    quiz = Quiz(owner_id=AUTH_TEACHER_ID, title="Seed Quiz", status=QuizStatus.DRAFT)
     db_session.add(quiz)
     await db_session.commit()
     await db_session.refresh(quiz)
@@ -49,14 +49,14 @@ async def test_get_quiz_bola(client, db_session):
     db_session.add(quiz)
     await db_session.commit()
     
-    # Client uses SIMPLE_TEACHER_ID by default
+    # Client uses AUTH_TEACHER_ID by default via dependency override in conftest
     response = await client.get(f"/api/v1/quizzes/{quiz.id}")
     assert response.status_code == 403
 
 @pytest.mark.asyncio
 async def test_update_quiz(client, db_session):
-    from app.core.deps import SIMPLE_TEACHER_ID
-    quiz = Quiz(owner_id=SIMPLE_TEACHER_ID, title="To Update", status=QuizStatus.DRAFT)
+    from tests.conftest import AUTH_TEACHER_ID
+    quiz = Quiz(owner_id=AUTH_TEACHER_ID, title="To Update", status=QuizStatus.DRAFT)
     db_session.add(quiz)
     await db_session.commit()
     
@@ -64,3 +64,4 @@ async def test_update_quiz(client, db_session):
     response = await client.put(f"/api/v1/quizzes/{quiz.id}", json=payload)
     assert response.status_code == 200
     assert response.json()["title"] == "Updated Title"
+

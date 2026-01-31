@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
+import { useAuth } from '@/features/auth/context/AuthContext';
 import { useQuizzes } from '../api/quizQueries';
+
 import { Button } from '@/components/ui/button';
 import { Card, CardHeader, CardTitle, CardDescription, CardFooter } from '@/components/ui/card';
 import { Plus, ListChecks, FileText, ChevronRight } from 'lucide-react';
@@ -7,7 +9,9 @@ import { Skeleton } from '@/components/ui/skeleton';
 
 // [Feature: Quiz Management] [Story: QQ-TECH-001] [Ticket: QQ-TECH-001-FE-T03]
 export default function QuizListPage() {
+    const { user } = useAuth();
     const { data: quizzes, isLoading } = useQuizzes();
+
 
     if (isLoading) {
         return (
@@ -68,13 +72,20 @@ export default function QuizListPage() {
                                 </CardDescription>
                             </CardHeader>
                             <CardFooter className="pt-2">
-                                <Button asChild variant="ghost" className="w-full justify-between group/btn hover:bg-primary/5 text-primary font-semibold">
-                                    <Link to={`/quizzes/${quiz.id}/edit`}>
-                                        Editar Cuestionario
-                                        <ChevronRight className="h-4 w-4 transform group-hover/btn:translate-x-1 transition-transform" />
-                                    </Link>
-                                </Button>
+                                {quiz.owner_id === user?.id ? (
+                                    <Button asChild variant="ghost" className="w-full justify-between group/btn hover:bg-primary/5 text-primary font-semibold">
+                                        <Link to={`/quizzes/${quiz.id}/edit`}>
+                                            Editar Cuestionario
+                                            <ChevronRight className="h-4 w-4 transform group-hover/btn:translate-x-1 transition-transform" />
+                                        </Link>
+                                    </Button>
+                                ) : (
+                                    <div className="text-xs text-muted-foreground italic px-4 py-2">
+                                        Vista de solo lectura
+                                    </div>
+                                )}
                             </CardFooter>
+
                         </Card>
                     ))}
                 </div>

@@ -41,16 +41,14 @@ async def get_quiz(
     repo: QuizRepository = Depends(get_quiz_repository)
 ):
     use_case = GetQuiz(repo)
-    quiz = await use_case.execute(quiz_id)
-    if not quiz:
-        raise HTTPException(status_code=404, detail="Quiz not found")
-    
-    # BOLA Check
-    # BOLA Check
-    if quiz.owner_id != current_user_id:
-        raise HTTPException(status_code=403, detail="Not authorized to access this quiz")
+    try:
+        quiz = await use_case.execute(quiz_id, current_user_id)
+        if not quiz:
+            raise HTTPException(status_code=404, detail="Quiz not found")
+        return quiz
+    except PermissionError as e:
+        raise HTTPException(status_code=403, detail=str(e))
 
-    return quiz
 
 @router.put("/{quiz_id}", response_model=QuizResponse)
 async def update_quiz(
@@ -59,20 +57,33 @@ async def update_quiz(
     current_user_id: UUID = Depends(get_current_user),
     repo: QuizRepository = Depends(get_quiz_repository)
 ):
-    # Check existence and ownership
-    getter = GetQuiz(repo)
-    existing = await getter.execute(quiz_id)
-    if not existing:
-        raise HTTPException(status_code=404, detail="Quiz not found")
-    
-    if existing.owner_id != current_user_id:
-        raise HTTPException(status_code=403, detail="Not authorized to update this quiz")
-
     use_case = UpdateQuiz(repo)
-    updated = await use_case.execute(quiz_id, dto)
-    return updated
+    try:
+        updated = await use_case.execute(quiz_id, current_user_id, dto)
+        if not updated:
+            raise HTTPException(status_code=404, detail="Quiz not found")
+        return updated
+    except PermissionError as e:
+        raise HTTPException(status_code=403, detail=str(e))
+
+@router.delete("/{quiz_id}", status_code=status.HTTP_204_NO_CONTENT)
+
+async def delete_quiz(
+    quiz_id: UUID,
+    current_user_id: UUID = Depends(get_current_user),
+    repo: QuizRepository = Depends(get_quiz_repository)
+):
+    from app.application.use_cases.quiz.delete_quiz import DeleteQuiz
+    use_case = DeleteQuiz(repo)
+    try:
+        success = await use_case.execute(quiz_id, current_user_id)
+        if not success:
+            raise HTTPException(status_code=404, detail="Quiz not found")
+    except PermissionError as e:
+        raise HTTPException(status_code=403, detail=str(e))
 
 @router.post("/{quiz_id}/questions", response_model=QuestionResponse, status_code=status.HTTP_201_CREATED)
+
 async def add_question(
     quiz_id: UUID,
     dto: QuestionCreate,

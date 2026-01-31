@@ -3,7 +3,7 @@ import uuid
 from sqlalchemy import select
 from app.infrastructure.models.quiz import Quiz, Question, Option, QuestionType
 
-from app.core.deps import SIMPLE_TEACHER_ID
+from tests.conftest import AUTH_TEACHER_ID
 
 # [Feature: Quiz Management] [Story: QQ-TEACHER-002] [Ticket: QQ-TEACHER-002-DB-T01]
 @pytest.mark.asyncio
@@ -13,8 +13,9 @@ async def test_question_persistence(db_session):
     """
     quiz = Quiz(
         title="Test Quiz with Questions",
-        owner_id=SIMPLE_TEACHER_ID,
+        owner_id=AUTH_TEACHER_ID,
     )
+
     
     question = Question(
         type=QuestionType.TF,
