@@ -83,7 +83,6 @@ async def delete_quiz(
         raise HTTPException(status_code=403, detail=str(e))
 
 @router.post("/{quiz_id}/questions", response_model=QuestionResponse, status_code=status.HTTP_201_CREATED)
-
 async def add_question(
     quiz_id: UUID,
     dto: QuestionCreate,
@@ -95,9 +94,26 @@ async def add_question(
     try:
         return await use_case.execute(current_user_id, quiz_id, dto)
     except PermissionError as e:
-        raise HTTPException(status_code=404, detail=str(e))
+        raise HTTPException(status_code=403, detail=str(e))
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
+
+@router.delete("/questions/{question_id}", status_code=status.HTTP_204_NO_CONTENT)
+async def delete_question(
+    question_id: UUID,
+    current_user_id: UUID = Depends(get_current_user),
+    quiz_repo: QuizRepository = Depends(get_quiz_repository),
+    question_repo: QuestionRepository = Depends(get_question_repository)
+):
+    from app.application.use_cases.question.delete_question import DeleteQuestion
+    use_case = DeleteQuestion(quiz_repo, question_repo)
+    try:
+        success = await use_case.execute(current_user_id, question_id)
+        if not success:
+            raise HTTPException(status_code=404, detail="Question not found")
+    except PermissionError as e:
+        raise HTTPException(status_code=403, detail=str(e))
+
 
 # [Feature: Quiz Management] [Story: QQ-TEACHER-004] [Ticket: QQ-TEACHER-004-BE-T01]
 @router.patch("/{quiz_id}/reorder", status_code=status.HTTP_204_NO_CONTENT)

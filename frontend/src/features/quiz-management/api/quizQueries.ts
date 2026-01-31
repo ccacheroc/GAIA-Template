@@ -74,3 +74,15 @@ export const usePublishQuiz = (quizId: string) => {
         },
     });
 };
+export const useDeleteQuiz = () => {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: async (quizId: string) => {
+            await http.delete(`/quizzes/${quizId}`);
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['quizzes'] });
+        },
+    });
+};

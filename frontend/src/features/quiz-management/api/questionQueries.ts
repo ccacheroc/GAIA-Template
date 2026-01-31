@@ -69,3 +69,16 @@ export const useReorderQuestions = (quizId: string) => {
         },
     });
 };
+export const useDeleteQuestion = (quizId: string) => {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: async (questionId: string) => {
+            await http.delete(`/quizzes/questions/${questionId}`);
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['quiz', quizId] });
+            queryClient.invalidateQueries({ queryKey: ['quizzes'] });
+        },
+    });
+};

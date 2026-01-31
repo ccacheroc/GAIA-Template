@@ -18,8 +18,7 @@ class SQLAlchemyQuizRepository:
         from app.infrastructure.models.quiz import Question
 
         self.session.add(quiz)
-        await self.session.flush()
-        await self.session.refresh(quiz)
+        await self.session.commit() # [Ticket: QQ-BUG-001]
         
         # Load relationships for serialization
         result = await self.session.execute(
@@ -48,8 +47,7 @@ class SQLAlchemyQuizRepository:
         from sqlalchemy.orm import selectinload
         from app.infrastructure.models.quiz import Question
 
-        # Flush changes to DB
-        await self.session.flush()
+        await self.session.commit() # [Ticket: QQ-BUG-001]
         
         # Reload fully to ensure response schemas can access relationships
         result = await self.session.execute(
@@ -61,7 +59,16 @@ class SQLAlchemyQuizRepository:
         )
         return result.scalars().first()
 
+    async def delete(self, quiz_id: UUID) -> bool:
+        quiz = await self.get_by_id(quiz_id)
+        if quiz:
+            await self.session.delete(quiz)
+            await self.session.commit()
+            return True
+        return False
+
     async def list_by_owner(self, owner_id: UUID) -> list[Quiz]:
+
         from sqlalchemy.orm import selectinload
         from app.infrastructure.models.quiz import Question
 

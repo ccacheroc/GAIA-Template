@@ -19,6 +19,11 @@ class QuestionRepository(Protocol):
         """Get all questions for a specific quiz."""
         ...
 
-    async def update_all_sequences(self, quiz_id: UUID, reorder_items: List[tuple[UUID, int]]) -> None:
-        """Update sequences for multiple questions in a quiz."""
+    async def get_by_id(self, question_id: UUID) -> Optional[Question]:
+        """Get a specific question by ID."""
         ...
+
+    async def delete(self, question_id: UUID) -> bool:
+        """Delete a specific question."""
+        ...
+

@@ -58,3 +58,16 @@ class SQLAlchemyQuestionRepository(QuestionRepository):
                 question.sequence = new_sequence
         
         await self.session.commit()
+    async def get_by_id(self, question_id: UUID) -> Question | None:
+        result = await self.session.execute(
+            select(Question).where(Question.id == question_id)
+        )
+        return result.scalar_one_or_none()
+
+    async def delete(self, question_id: UUID) -> bool:
+        question = await self.get_by_id(question_id)
+        if question:
+            await self.session.delete(question)
+            await self.session.commit()
+            return True
+        return False

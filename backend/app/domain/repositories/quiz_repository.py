@@ -21,3 +21,6 @@ class QuizRepository(Protocol):
     async def list_by_owner(self, owner_id: UUID) -> list[Quiz]:
         """List all quizzes for an owner"""
         ...
+    async def delete(self, quiz_id: UUID) -> bool:
+        """Delete a quiz by ID"""
+        ...

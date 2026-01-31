@@ -18,12 +18,14 @@ import {
     useSortable,
 } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { GripVertical } from 'lucide-react';
+import { GripVertical, Trash2 } from 'lucide-react';
 
 import { useQuiz } from '../api/quizQueries';
-import { useReorderQuestions } from '../api/questionQueries';
+import { useReorderQuestions, useDeleteQuestion } from '../api/questionQueries';
 import type { QuestionResponse } from '../types';
 import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { toast } from 'sonner';
 
 // Inline simple placeholderBadge since we don't have the badge component yet
 function Badge({ children, className = "" }: { children: ReactNode; className?: string }) {
@@ -37,9 +39,10 @@ function Badge({ children, className = "" }: { children: ReactNode; className?: 
 interface SortableQuestionItemProps {
     question: QuestionResponse;
     disabled?: boolean;
+    onDelete?: (id: string) => void;
 }
 
-export function SortableQuestionItem({ question, disabled }: SortableQuestionItemProps) {
+export function SortableQuestionItem({ question, disabled, onDelete }: SortableQuestionItemProps) {
     const {
         attributes,
         listeners,
@@ -49,7 +52,7 @@ export function SortableQuestionItem({ question, disabled }: SortableQuestionIte
         isDragging,
     } = useSortable({
         id: question.id,
-        disabled: disabled
+        disabled: disabled,
     });
 
     const style = {
@@ -85,6 +88,18 @@ export function SortableQuestionItem({ question, disabled }: SortableQuestionIte
                         </div>
                         <p className="text-sm font-medium line-clamp-2">{question.content}</p>
                     </div>
+
+                    {!disabled && onDelete && (
+                        <Button
+                            variant="ghost"
+                            size="icon"
+                            className="text-muted-foreground hover:text-destructive hover:bg-destructive/10"
+                            onClick={() => onDelete(question.id)}
+                            title="Eliminar pregunta"
+                        >
+                            <Trash2 className="h-4 w-4" />
+                        </Button>
+                    )}
                 </CardContent>
             </Card>
         </div>
@@ -99,6 +114,7 @@ interface QuestionListProps {
 export function QuestionList({ quizId, disabled }: QuestionListProps) {
     const { data: quiz, isLoading } = useQuiz(quizId);
     const { mutate: reorderQuestions } = useReorderQuestions(quizId);
+    const { mutate: deleteQuestion } = useDeleteQuestion(quizId);
 
     // Local state for optimistic updates handling in DND context
     const [items, setItems] = useState<QuestionResponse[]>([]);
@@ -147,6 +163,15 @@ export function QuestionList({ quizId, disabled }: QuestionListProps) {
         }
     };
 
+    const handleDelete = (id: string) => {
+        if (window.confirm('¿Estás seguro de que quieres eliminar esta pregunta?')) {
+            deleteQuestion(id, {
+                onSuccess: () => toast.success('Pregunta eliminada'),
+                onError: () => toast.error('Error al eliminar la pregunta')
+            });
+        }
+    };
+
     if (isLoading) {
         return (
             <div className="space-y-4">
@@ -161,7 +186,7 @@ export function QuestionList({ quizId, disabled }: QuestionListProps) {
         return (
             <div className="text-center py-12 border-2 border-dashed rounded-lg bg-muted/5">
                 <p className="text-muted-foreground text-sm">
-                    No questions yet. Use the "Add Question" button to get started!
+                    No hay preguntas todavía. ¡Usa los botones de arriba para añadir la primera!
                 </p>
             </div>
         );
@@ -183,6 +208,7 @@ export function QuestionList({ quizId, disabled }: QuestionListProps) {
                             key={question.id}
                             question={question}
                             disabled={disabled}
+                            onDelete={handleDelete}
                         />
                     ))}
                 </div>
