@@ -13,3 +13,12 @@ class QuestionRepository(Protocol):
     async def get_next_sequence(self, quiz_id: UUID) -> int:
         """Calculate the next sequence for a question in a quiz."""
         ...
+
+    # [Feature: Quiz Management] [Story: QQ-TEACHER-004] [Ticket: QQ-TEACHER-004-BE-T01]
+    async def get_by_quiz_id(self, quiz_id: UUID) -> List[Question]:
+        """Get all questions for a specific quiz."""
+        ...
+
+    async def update_all_sequences(self, quiz_id: UUID, reorder_items: List[tuple[UUID, int]]) -> None:
+        """Update sequences for multiple questions in a quiz."""
+        ...

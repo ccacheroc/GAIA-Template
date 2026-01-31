@@ -43,7 +43,7 @@ Container_Boundary(backend_boundary, "Backend API (FastAPI)") {
 
 ContainerDb(db, "Database", "PostgreSQL", "Data storage")
 
-Rel(router, use_cases, "Calls (AddQuestion, etc.)")
+Rel(router, use_cases, "Calls (AddQuestion, ReorderQuestions, etc.)")
 Rel(use_cases, domain, "Uses Entities")
 Rel(use_cases, infra, "Calls via Ports (QuestionRepo)")
 Rel(infra, db, "SQL", "TCP")

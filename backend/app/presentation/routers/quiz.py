@@ -7,10 +7,11 @@ from app.application.use_cases.quiz.get_quiz import GetQuiz
 from app.application.use_cases.quiz.update_quiz import UpdateQuiz
 from app.application.use_cases.quiz.list_quizzes import ListQuizzes
 from app.domain.repositories.quiz_repository import QuizRepository
-from app.presentation.schemas.question import QuestionCreate, QuestionResponse
+from app.presentation.schemas.question import QuestionCreate, QuestionResponse, QuestionReorderRequest
 from app.application.use_cases.question.add_question import AddQuestion
+from app.application.use_cases.question.reorder_questions import ReorderQuestionsUseCase
 from app.domain.repositories.question_repository import QuestionRepository
-from app.core.deps import get_current_user, get_quiz_repository, get_question_repository
+from app.core.deps import get_current_user, get_quiz_repository, get_question_repository, get_reorder_questions_use_case
 
 # [Feature: Quiz Management] [Story: QQ-TEACHER-001] [Ticket: QQ-BUG-002]
 
@@ -85,3 +86,14 @@ async def add_question(
         raise HTTPException(status_code=404, detail=str(e))
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
+
+# [Feature: Quiz Management] [Story: QQ-TEACHER-004] [Ticket: QQ-TEACHER-004-BE-T01]
+@router.patch("/{quiz_id}/reorder", status_code=status.HTTP_204_NO_CONTENT)
+async def reorder_questions(
+    quiz_id: UUID,
+    dto: QuestionReorderRequest,
+    current_user_id: UUID = Depends(get_current_user),
+    use_case: ReorderQuestionsUseCase = Depends(get_reorder_questions_use_case)
+):
+    reorder_items = [(item.id, item.sequence) for item in dto.items]
+    await use_case.execute(current_user_id, quiz_id, reorder_items)

@@ -132,7 +132,7 @@ This feature allows teachers to create and edit quizzes with different question 
 
 #### Tickets for QQ-TEACHER-004
 
-1. - [ ] **QQ-TEACHER-004-BE-T01 — Batch Reorder API**
+1. - [x] (2026-01-31) **QQ-TEACHER-004-BE-T01 — Batch Reorder API**
    - **Type**: BE
    - **Description**: Endpoint to update the sequence of all questions in a quiz in a single transaction.
    - **Scope**: 

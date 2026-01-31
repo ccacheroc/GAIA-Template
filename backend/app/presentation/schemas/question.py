@@ -48,3 +48,11 @@ class QuestionResponse(QuestionBase):
     sequence: int
     options: List[OptionResponse]
     model_config = ConfigDict(from_attributes=True)
+
+# [Feature: Quiz Management] [Story: QQ-TEACHER-004] [Ticket: QQ-TEACHER-004-BE-T01]
+class QuestionReorder(BaseModel):
+    id: UUID
+    sequence: int
+
+class QuestionReorderRequest(BaseModel):
+    items: List[QuestionReorder]
