@@ -34,7 +34,7 @@
      - Unit tests for the adapter.
    - **Dependencies**: None.
 
-3. - [ ] **TM-USER-001-FE-T03 — Task List UI & State**
+3. - [x] **TM-USER-001-FE-T03 — Task List UI & State** [x] (2026-02-03)
    - **Type**: FE
    - **Description**: Implement the `TaskListView` and `TaskItem` components. Connect them to the data service using React Query (or simple hooks if RQ is overkill, but sticking to Tech Stack: use React Query).
    - **Scope**: `TaskList`, `TaskItem`, `useTasks` hook.
