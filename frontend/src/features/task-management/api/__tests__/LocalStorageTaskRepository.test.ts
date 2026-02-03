@@ -72,4 +72,16 @@ describe('LocalStorageTaskRepository', () => {
         expect(tasks).toEqual([]);
         // Should preserve safe fallbacks
     });
+    it('should create a new task with default fields', async () => {
+        const newTask = await repository.createTask('New Integration Task');
+
+        expect(newTask.id).toBeDefined();
+        expect(newTask.title).toBe('New Integration Task');
+        expect(newTask.status).toBe('pending');
+        expect(newTask.createdAt).toBeDefined();
+
+        const tasks = await repository.getAll();
+        expect(tasks).toHaveLength(1);
+        expect(tasks[0]).toEqual(newTask);
+    });
 });

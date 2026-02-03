@@ -53,7 +53,7 @@
 
 #### Tickets for TM-USER-002
 
-1. - [ ] **TM-USER-002-FE-T01 — Create Task Logic (Service)**
+1. - [x] **TM-USER-002-FE-T01 — Create Task Logic (Service)** [x] (2026-02-03)
    - **Type**: FE (Data)
    - **Description**: Extend the storage service to support `createTask`. Implement Zod validation for title constraints.
    - **Scope**: `features/task-management/api/storage.ts`, `features/task-management/schema.ts`.

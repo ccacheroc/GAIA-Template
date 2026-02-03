@@ -4,6 +4,7 @@ import { type Task } from "../types/Task";
 export interface TaskRepository {
     getAll(): Promise<Task[]>;
     save(task: Task): Promise<void>;
+    createTask(title: string): Promise<Task>;
     delete(id: string): Promise<void>;
     update(task: Task): Promise<void>;
 }

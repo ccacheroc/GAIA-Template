@@ -21,6 +21,17 @@ export class LocalStorageTaskRepository implements TaskRepository {
         this.persist(tasks);
     }
 
+    async createTask(title: string): Promise<Task> {
+        const newTask: Task = {
+            id: crypto.randomUUID(),
+            title,
+            status: 'pending',
+            createdAt: Date.now()
+        };
+        await this.save(newTask);
+        return newTask;
+    }
+
     async delete(id: string): Promise<void> {
         const tasks = await this.getAll();
         const filtered = tasks.filter(t => t.id !== id);
