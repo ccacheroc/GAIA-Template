@@ -63,7 +63,7 @@
      - XSS sanitization check (if not handled by React automatically, ensure inputs are safe).
    - **Dependencies**: TM-USER-001-FE-T02.
 
-2. - [ ] **TM-USER-002-FE-T02 — Task Input Component**
+2. - [x] **TM-USER-002-FE-T02 — Task Input Component** [x] (2026-02-03)
    - **Type**: FE
    - **Description**: Implement `TaskInput` component with validation and visual feedback.
    - **Scope**: `features/task-management/components/TaskInput.tsx`.
