@@ -49,7 +49,7 @@
    - **Deliverables**: CreateTask use case, POST endpoint.
    - **Dependencies**: TM-USER-001-BE-T02.
 
-2. - [ ] **TM-USER-002-FE-T02 — Frontend: Create Task UI**
+2. - [x] **TM-USER-002-FE-T02 — Frontend: Create Task UI** [x] (2026-02-04)
    - **Type**: FE
    - **Description**: Wire the `TaskInput` component to the backend creation endpoint.
    - **Scope**: `frontend/src/features/task-management`.

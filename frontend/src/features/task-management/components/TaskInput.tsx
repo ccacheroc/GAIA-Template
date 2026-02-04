@@ -1,16 +1,12 @@
-// [Feature: Task Management] [Story: TM-USER-002] [Ticket: TM-USER-002-FE-T02]
 import { useState } from 'react';
 import { createTaskSchema } from '../schemas';
-import { Plus } from 'lucide-react';
+import { Plus, Loader2 } from 'lucide-react';
+import { useCreateTask } from '../hooks/useTasks';
 
-interface TaskInputProps {
-    onSave: (title: string) => void;
-    disabled?: boolean;
-}
-
-export function TaskInput({ onSave, disabled }: TaskInputProps) {
+export function TaskInput() {
     const [title, setTitle] = useState('');
     const [error, setError] = useState<string | null>(null);
+    const { mutate: createTask, isPending } = useCreateTask();
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -22,11 +18,15 @@ export function TaskInput({ onSave, disabled }: TaskInputProps) {
             return;
         }
 
-        onSave(title.trim());
-        setTitle('');
-        setError(null);
+        createTask(title.trim(), {
+            onSuccess: () => {
+                setTitle('');
+                setError(null);
+            },
+        });
     };
 
+    // [Feature: Task Management] [Story: TM-USER-002] [Ticket: TM-USER-002-FE-T02]
     return (
         <form onSubmit={handleSubmit} className="relative w-full">
             <div className="flex gap-2">
@@ -38,7 +38,7 @@ export function TaskInput({ onSave, disabled }: TaskInputProps) {
                             setTitle(e.target.value);
                             if (error) setError(null);
                         }}
-                        disabled={disabled}
+                        disabled={isPending}
                         placeholder="What needs to be done?"
                         className={`flex h-10 w-full rounded-md border bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 ${error ? 'border-red-500 focus-visible:ring-red-500' : 'border-input'
                             }`}
@@ -52,11 +52,15 @@ export function TaskInput({ onSave, disabled }: TaskInputProps) {
                 </div>
                 <button
                     type="submit"
-                    disabled={disabled || !title.trim()}
+                    disabled={isPending || !title.trim()}
                     className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground hover:bg-primary/90 h-10 px-4 py-2"
                     aria-label="Add task"
                 >
-                    <Plus className="mr-2 h-4 w-4" />
+                    {isPending ? (
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    ) : (
+                        <Plus className="mr-2 h-4 w-4" />
+                    )}
                     Add
                 </button>
             </div>

@@ -1,39 +1,76 @@
 import { render, screen } from '@testing-library/react';
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { TaskInput } from '../TaskInput';
 import userEvent from '@testing-library/user-event';
+import { useCreateTask } from '../../hooks/useTasks';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+// Mock the hook
+vi.mock('../../hooks/useTasks', () => ({
+    useCreateTask: vi.fn(),
+}));
+
+const createWrapper = () => {
+    const queryClient = new QueryClient({
+        defaultOptions: {
+            queries: { retry: false },
+        },
+    });
+    return ({ children }: { children: React.ReactNode }) => (
+        <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+    );
+};
 
 describe('TaskInput', () => {
+    const mockMutate = vi.fn();
+
+    beforeEach(() => {
+        vi.clearAllMocks();
+        (useCreateTask as any).mockReturnValue({
+            mutate: mockMutate,
+            isPending: false,
+        });
+    });
+
     it('should render input and button', () => {
-        render(<TaskInput onSave={vi.fn()} />);
+        render(<TaskInput />, { wrapper: createWrapper() });
         expect(screen.getByPlaceholderText(/What needs to be done?/i)).toBeInTheDocument();
         expect(screen.getByRole('button', { name: /add/i })).toBeInTheDocument();
     });
 
-    it('should call onSave with trimmed value when valid', async () => {
-        const onSave = vi.fn();
-        render(<TaskInput onSave={onSave} />);
+    it('should call createTask mutation with value when valid', async () => {
+        render(<TaskInput />, { wrapper: createWrapper() });
 
         await userEvent.type(screen.getByPlaceholderText(/What needs to be done?/i), 'Buy Milk');
         await userEvent.click(screen.getByRole('button', { name: /add/i }));
 
-        expect(onSave).toHaveBeenCalledWith('Buy Milk');
-        expect(screen.getByPlaceholderText(/What needs to be done?/i)).toHaveValue('');
+        expect(mockMutate).toHaveBeenCalledWith('Buy Milk', expect.any(Object));
     });
 
-    it('should show error when submitting empty value', async () => {
-        const onSave = vi.fn();
-        render(<TaskInput onSave={onSave} />);
-
-        await userEvent.click(screen.getByRole('button', { name: /add/i }));
-
-        expect(screen.getByText(/Title is required/i)).toBeInTheDocument();
-        expect(onSave).not.toHaveBeenCalled();
+    it('should have disabled button when input is empty', async () => {
+        render(<TaskInput />, { wrapper: createWrapper() });
+        const button = screen.getByRole('button', { name: /add task/i });
+        expect(button).toBeDisabled();
     });
 
-    it('should disable interactions when disabled', () => {
-        render(<TaskInput onSave={vi.fn()} disabled />);
+    it('should enable button when input has value', async () => {
+        render(<TaskInput />, { wrapper: createWrapper() });
+        const input = screen.getByPlaceholderText(/What needs to be done?/i);
+        const button = screen.getByRole('button', { name: /add task/i });
+
+        await userEvent.type(input, 'Buy Milk');
+        expect(button).not.toBeDisabled();
+    });
+
+    it('should disable interactions when mutation is pending', () => {
+        (useCreateTask as any).mockReturnValue({
+            mutate: mockMutate,
+            isPending: true,
+        });
+
+        render(<TaskInput />, { wrapper: createWrapper() });
         expect(screen.getByPlaceholderText(/What needs to be done?/i)).toBeDisabled();
-        expect(screen.getByRole('button', { name: /add/i })).toBeDisabled();
+        expect(screen.getByRole('button', { name: /add task/i })).toBeDisabled();
+        expect(screen.getByRole('button', { name: /add task/i }).querySelector('.animate-spin')).toBeInTheDocument();
     });
 });
