@@ -13,4 +13,15 @@ class TaskRepository(ABC):
         """Persists a new task."""
         pass
 
+    @abstractmethod
+    def get_by_id(self, task_id: str) -> Task | None:
+        """Retrieves a task by its ID."""
+        pass
+
+    @abstractmethod
+    def update(self, task: Task) -> Task:
+        """Updates an existing task."""
+        pass
+
     # [Feature: Task Management] [Story: TM-USER-001] [Ticket: TM-USER-001-BE-T02]
+    # [Feature: Task Management] [Story: TM-USER-003] [Ticket: TM-USER-003-BE-T01]

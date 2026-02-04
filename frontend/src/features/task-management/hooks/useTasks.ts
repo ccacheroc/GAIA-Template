@@ -30,3 +30,18 @@ export function useCreateTask() {
         },
     });
 }
+// [Feature: Task Management] [Story: TM-USER-003] [Ticket: TM-USER-003-BE-T01]
+// Custom hook to update task status using React Query mutation.
+export function useUpdateTaskStatus() {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: async ({ taskId, status }: { taskId: string; status: string }) => {
+            const response = await http.patch(`/tasks/${taskId}`, { status });
+            return response.data;
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['tasks'] });
+        },
+    });
+}

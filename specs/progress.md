@@ -106,3 +106,11 @@
   - `backend/app/infrastructure/repositories/task_repository_impl.py`
   - `backend/app/presentation/api/tasks.py`
 - **Notes**: Implemented Create Task API using Hexagonal Architecture. Added docker-compose.yml and testing infrastructure.
+
+- **Date**: 2026-02-04
+- **Milestone**: Executed plan TM-USER-002-FE-T02 (workflow: /execute-plan)
+- **Artifacts**:
+  - `frontend/src/features/task-management/hooks/useTasks.ts`
+  - `frontend/src/features/task-management/components/TaskInput.tsx`
+  - `frontend/src/features/task-management/pages/TaskPage.tsx`
+- **Notes**: Wired TaskInput to backend API using useMutation. Updated tests to mock HTTP instead of direct repository calls.
