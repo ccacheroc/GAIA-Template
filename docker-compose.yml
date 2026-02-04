@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: gaia_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: gaia_db
+    ports:
+      - "5455:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  backend:
+    build: ./backend
+    container_name: gaia_backend
+    volumes:
+      - ./backend:/app
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_SERVER: db
+      POSTGRES_DB: gaia_db
+    ports:
+      - "8005:8000"
+    depends_on:
+      - db
+
+  frontend:
+    build: ./frontend
+    container_name: gaia_frontend
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    ports:
+      - "5188:5188"
+    environment:
+      - VITE_API_BASE_URL=http://localhost:8005
+
+volumes:
+  postgres_data:

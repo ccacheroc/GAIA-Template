@@ -15,4 +15,15 @@ class SqlAlchemyTaskRepository(TaskRepository):
         ).all()
         return [TaskMapper.to_domain(m) for m in models]
 
+    def create(self, task: Task) -> Task:
+        """
+        [Feature: Task Management] [Story: create-task] [Ticket: TM-USER-002-BE-T01]
+        Persists a domain task to the database.
+        """
+        model = TaskMapper.to_model(task)
+        self._session.add(model)
+        self._session.commit()
+        self._session.refresh(model)
+        return TaskMapper.to_domain(model)
+
     # [Feature: Task Management] [Story: TM-USER-001] [Ticket: TM-USER-001-BE-T02]

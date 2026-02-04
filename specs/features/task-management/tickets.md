@@ -42,7 +42,7 @@
 
 #### Tickets for TM-USER-002
 
-1. - [ ] **TM-USER-002-BE-T01 — Backend: Create Task API**
+1. - [x] **TM-USER-002-BE-T01 — Backend: Create Task API** [x] (2026-02-04)
    - **Type**: BE
    - **Description**: Implement use case and endpoint to persist new tasks in the DB.
    - **Scope**: `backend/app/src/context/task_management`.

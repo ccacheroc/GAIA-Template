@@ -97,3 +97,12 @@
   - `frontend/src/features/task-management/components/TaskList.tsx`
   - `frontend/src/features/task-management/components/TaskItem.tsx`
 - **Notes**: Frontend now fetches from FastAPI backend using TanStack Query. Types and status enums aligned with backend.
+
+- **Date**: 2026-02-04
+- **Milestone**: Executed plan TM-USER-002-BE-T01 (workflow: /execute-plan)
+- **Artifacts**:
+  - `backend/app/application/use_cases/task_management/create_task.py`
+  - `backend/app/infrastructure/db/session.py`
+  - `backend/app/infrastructure/repositories/task_repository_impl.py`
+  - `backend/app/presentation/api/tasks.py`
+- **Notes**: Implemented Create Task API using Hexagonal Architecture. Added docker-compose.yml and testing infrastructure.
