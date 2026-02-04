@@ -1,13 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
-import { LocalStorageTaskRepository } from '../api/LocalStorageTaskRepository';
+import http from '../../../api/http';
+import type { Task } from '../types/Task';
 
 // [Feature: Task Management] [Story: TM-USER-001] [Ticket: TM-USER-001-FE-T03]
-// Custom hook to fetch all tasks using React Query for caching and state management.
+// Custom hook to fetch all tasks from backend using React Query.
 export function useTasks() {
-    const repository = new LocalStorageTaskRepository();
-
-    return useQuery({
+    return useQuery<Task[]>({
         queryKey: ['tasks'],
-        queryFn: () => repository.getAll(),
+        queryFn: async () => {
+            const response = await http.get('/tasks/');
+            return response.data;
+        },
     });
 }

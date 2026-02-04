@@ -8,7 +8,7 @@ interface TaskItemProps {
 
 // [Feature: Task Management] [Ticket: TM-USER-001-FE-T03]
 export function TaskItem({ task }: TaskItemProps) {
-    const isCompleted = task.status === 'completed';
+    const isCompleted = task.status === 'completada';
 
     return (
         <div
@@ -32,7 +32,7 @@ export function TaskItem({ task }: TaskItemProps) {
                 </p>
                 <div className="flex items-center text-xs text-muted-foreground">
                     <Calendar className="w-3 h-3 mr-1" />
-                    <span>{new Date(task.createdAt).toLocaleDateString()}</span>
+                    <span>{new Date(task.created_at).toLocaleDateString()}</span>
                 </div>
             </div>
         </div>

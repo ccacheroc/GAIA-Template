@@ -1,11 +1,15 @@
-// [Feature: Task Management] [Story: TM-USER-001] [Ticket: TM-USER-001-FE-T02]
-export type TaskStatus = 'pending' | 'completed';
+// [Feature: Task Management] [Story: TM-USER-001] [Ticket: TM-USER-001-FE-T03]
+export type TaskStatus = 'pendiente' | 'en_progreso' | 'completada';
+export type TaskPriority = 'baja' | 'media' | 'alta';
 
-// [Feature: Task Management] [Story: TM-USER-001] [Ticket: TM-USER-001-FE-T02]
+// [Feature: Task Management] [Story: TM-USER-001] [Ticket: TM-USER-001-FE-T03]
 export interface Task {
     id: string;
     title: string;
+    description?: string;
     status: TaskStatus;
-    createdAt: number;
-    description?: string; // Future proofing
+    priority: TaskPriority;
+    created_at: string;
+    updated_at: string;
+    completed_at?: string;
 }

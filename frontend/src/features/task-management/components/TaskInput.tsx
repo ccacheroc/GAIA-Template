@@ -1,6 +1,6 @@
 // [Feature: Task Management] [Story: TM-USER-002] [Ticket: TM-USER-002-FE-T02]
 import { useState } from 'react';
-import { createTaskSchema } from '../../schemas';
+import { createTaskSchema } from '../schemas';
 import { Plus } from 'lucide-react';
 
 interface TaskInputProps {
@@ -18,7 +18,7 @@ export function TaskInput({ onSave, disabled }: TaskInputProps) {
         const result = createTaskSchema.safeParse({ title });
 
         if (!result.success) {
-            setError(result.error.errors[0].message);
+            setError(result.error.issues[0].message);
             return;
         }
 

@@ -38,7 +38,9 @@ export function TaskList() {
     }
 
     // Sort by newest first
-    const sortedTasks = [...tasks].sort((a, b) => b.createdAt - a.createdAt);
+    const sortedTasks = [...tasks].sort((a, b) =>
+        new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+    );
 
     return (
         <div className="space-y-3">

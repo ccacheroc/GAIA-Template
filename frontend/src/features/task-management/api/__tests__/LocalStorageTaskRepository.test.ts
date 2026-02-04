@@ -17,8 +17,10 @@ describe('LocalStorageTaskRepository', () => {
         const task: Task = {
             id: '123',
             title: 'Test Task',
-            status: 'pending',
-            createdAt: Date.now()
+            status: 'pendiente',
+            priority: 'media',
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString()
         };
 
         await repository.save(task);
@@ -37,8 +39,10 @@ describe('LocalStorageTaskRepository', () => {
         const task: Task = {
             id: '123',
             title: 'To Be Deleted',
-            status: 'pending',
-            createdAt: Date.now()
+            status: 'pendiente',
+            priority: 'media',
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString()
         };
         await repository.save(task);
 
@@ -52,16 +56,18 @@ describe('LocalStorageTaskRepository', () => {
         const task: Task = {
             id: '123',
             title: 'To Update',
-            status: 'pending',
-            createdAt: Date.now()
+            status: 'pendiente',
+            priority: 'media',
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString()
         };
         await repository.save(task);
 
-        const updatedTask = { ...task, status: 'completed' as const };
+        const updatedTask = { ...task, status: 'completada' as const };
         await repository.update(updatedTask);
 
         const tasks = await repository.getAll();
-        expect(tasks[0].status).toBe('completed');
+        expect(tasks[0].status).toBe('completada');
     });
 
     it('should ignore corrupt data in localStorage', async () => {
@@ -77,8 +83,8 @@ describe('LocalStorageTaskRepository', () => {
 
         expect(newTask.id).toBeDefined();
         expect(newTask.title).toBe('New Integration Task');
-        expect(newTask.status).toBe('pending');
-        expect(newTask.createdAt).toBeDefined();
+        expect(newTask.status).toBe('pendiente');
+        expect(newTask.created_at).toBeDefined();
 
         const tasks = await repository.getAll();
         expect(tasks).toHaveLength(1);

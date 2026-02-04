@@ -25,8 +25,10 @@ export class LocalStorageTaskRepository implements TaskRepository {
         const newTask: Task = {
             id: crypto.randomUUID(),
             title,
-            status: 'pending',
-            createdAt: Date.now()
+            status: 'pendiente',
+            priority: 'media',
+            created_at: new Date().toISOString(),
+            updated_at: new Date().toISOString()
         };
         await this.save(newTask);
         return newTask;

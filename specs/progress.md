@@ -77,10 +77,23 @@
 
 
 
-**Date**: 2026-02-03
-**Milestone**: Executed plan TM-USER-001-FE-T03 (workflow: /execute-plan)
+**Date**: 2026-02-04
+**Milestone**: Executed plan TM-USER-001-BE-T02 (Backend: List Tasks API) (workflow: /execute-plan)
 **Artifacts**: 
-  - frontend/src/features/task-management/hooks/useTasks.ts
-  - frontend/src/features/task-management/components/TaskList.tsx
-  - frontend/src/features/task-management/components/TaskItem.tsx
-**Notes**: Added React Query provider and Task List UI clearly showing "No tasks yet". Verified with 'npm run test'.
+  - backend/app/domain/entities/task.py
+  - backend/app/domain/repositories/task_repository.py
+  - backend/app/application/use_cases/task_management/list_tasks.py
+  - backend/app/infrastructure/db/mappers/task_mapper.py
+  - backend/app/infrastructure/repositories/task_repository_impl.py
+  - backend/app/presentation/api/tasks.py
+  - backend/app/presentation/schemas/task.py
+**Notes**: Completed backend implementation for task listing using Hexagonal Architecture. Integrated SQLAlchemy as adapter and FastAPI as presentation. Verified basic import integrity.
+
+- **Date**: 2026-02-04
+- **Milestone**: Executed plan TM-USER-001-FE-T03 (workflow: /execute-plan)
+- **Artifacts**:
+  - `frontend/src/api/http.ts`
+  - `frontend/src/features/task-management/hooks/useTasks.ts`
+  - `frontend/src/features/task-management/components/TaskList.tsx`
+  - `frontend/src/features/task-management/components/TaskItem.tsx`
+- **Notes**: Frontend now fetches from FastAPI backend using TanStack Query. Types and status enums aligned with backend.
