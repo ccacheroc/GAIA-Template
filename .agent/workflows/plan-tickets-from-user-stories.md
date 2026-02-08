@@ -29,6 +29,7 @@ For **each user story**, generate **at least three implementation tickets** (Thi
 3. **FE Ticket**
 4. **OTH Ticket** (if strictly necessary)
 
+
 # OUTPUT Structure — `specs/features/[feature-slug]/tickets.md`
 
 ## <Feature Name> — Implementation Tickets
